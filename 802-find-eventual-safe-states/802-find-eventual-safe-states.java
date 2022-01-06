@@ -10,12 +10,7 @@ class Solution {
         List<Integer> res = new ArrayList<>();
         
         for (int i = 0; i < n; i++) {
-            if (memo.containsKey(i) && memo.get(i)) {
-                continue;
-            }
-            
-            
-            if (!isCycle(graph, i, path, memo)) {
+            if (!path[i] && !isCycle(graph, i, path, memo)) {
                 res.add(i);
             }
         }
