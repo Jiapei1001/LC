@@ -20,6 +20,7 @@ class Solution {
             return root;
         }
         
+        // 一定要放在下面，单独放在上面会报错
         // if (root.left == null && root.right == null && root.val == target) {
         //     return null;
         // }
