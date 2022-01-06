@@ -14,11 +14,10 @@ class Solution {
                 continue;
             }
             
-            // if (!memo.containsKey(i)) {
-                if (!isCycle(graph, i, path, memo)) {
-                    res.add(i);
-                }
-            // }
+            
+            if (!isCycle(graph, i, path, memo)) {
+                res.add(i);
+            }
         }
         
         return res;
