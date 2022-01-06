@@ -10,15 +10,16 @@ class Solution {
             graph.get(p[1]).add(p[0]);
         }
         
-        Set<Integer> visited = new HashSet<>();
+        // Set<Integer> visited = new HashSet<>();
+        Map<Integer, Boolean> memo = new HashMap<>();
         List<Integer> res = new ArrayList<>();
         
         boolean[] path = new boolean[numCourses];
         
         // DFS
         for (int i = 0; i < numCourses; i++) {
-            if (!visited.contains(i)) {
-                if (dfs(graph, i, path, visited, res)) {
+            if (!memo.containsKey(i)) {
+                if (isCycle(graph, i, path, memo, res)) {
                     return new int[]{};
                 }
             }
@@ -30,14 +31,14 @@ class Solution {
     }
     
     
-    private boolean dfs(Map<Integer, Set<Integer>> graph,
-                        int curr,
-                        boolean[] path,
-                        Set<Integer> visited,
-                        List<Integer> res) {
+    private boolean isCycle(Map<Integer, Set<Integer>> graph,
+                            int curr,
+                            boolean[] path,
+                            Map<Integer, Boolean> memo,
+                            List<Integer> res) {
         
-        if (visited.contains(curr)) {
-            return false;
+        if (memo.containsKey(curr)) {
+            return memo.get(curr);
         }
         
         if (path[curr]) {
@@ -48,7 +49,7 @@ class Solution {
         
         boolean temp = false;
         for (int next : graph.get(curr)) {
-            temp = dfs(graph, next, path, visited, res);
+            temp = isCycle(graph, next, path, memo, res);
             
             if (temp) {
                 break;
@@ -57,8 +58,7 @@ class Solution {
         
         path[curr] = false;
         
-        
-        visited.add(curr);
+        memo.put(curr, temp);
         
         res.add(curr);
         
