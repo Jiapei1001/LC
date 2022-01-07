@@ -8,7 +8,7 @@ class Solution {
         
         if (target * k != sum) return false;
         
-        Arrays.sort(nums);
+        // Arrays.sort(nums);
         
         Set<Integer> visitedPos = new HashSet<>();
         
