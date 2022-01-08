@@ -40,11 +40,11 @@ class Solution {
             return false;
         }
         
-        if (cand.length() > 3) {
-            return false;
-        }
+        // if (cand.length() > 3) {
+        //     return false;
+        // }
         
-        int n = Integer.parseInt(cand);
+        long n = Long.parseLong(cand);
         
         if (n >= 256) {
             return false;
