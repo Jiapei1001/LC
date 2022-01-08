@@ -36,10 +36,6 @@ class Solution {
     }
     
     private boolean isValid(String cand) {
-        if (cand.length() == 0) {
-            return false;
-        }
-        
         if (cand.length() > 1 && cand.startsWith("0")) {
             return false;
         }
