@@ -12,9 +12,9 @@ class Solution {
         
         Set<Integer> visitedPos = new HashSet<>();
         
-        boolean[] seen = new boolean[nums.length];
+        // boolean[] seen = new boolean[nums.length];
         
-        if (dfs(nums, 0, 0, target, seen, k)) {
+        if (dfs(nums, 0, 0, target, visitedPos, k)) {
             return true;
         }
         
@@ -25,22 +25,22 @@ class Solution {
                      int pos,
                      int curr,
                      int target,
-                     boolean[] seen,
+                     Set<Integer> visitedPos,
                      int k) {        
         if (k == 0) {
             return true;
         }
 
         if (curr == target) {
-            return dfs(nums, 0, 0, target, seen, k - 1);
+            return dfs(nums, 0, 0, target, visitedPos, k - 1);
         }
-    
+
         for (int i = pos; i < nums.length; i++) {
-            if (seen[i]) {
+            if (visitedPos.contains(i)) {
                 continue;
             }
             
-            if (i > 1 && nums[i] == nums[i - 1] && !seen[i - 1]) {
+            if (i > 1 && nums[i] == nums[i - 1] && !visitedPos.contains(i - 1)) {
                 continue;
             }
             
@@ -48,15 +48,16 @@ class Solution {
                 continue;
             }
             
-            seen[i] = true;
+            // seen[i] = true;
+            visitedPos.add(i);
             
-            if (dfs(nums, i, curr + nums[i], target, seen, k)) {
+            if (dfs(nums, i, curr + nums[i], target, visitedPos, k)) {
                 return true;
             }
             
-            seen[i] = false;
+            // seen[i] = false;
+            visitedPos.remove(i);
         }
-        
         
         return false;
     }
