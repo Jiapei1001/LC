@@ -70,10 +70,12 @@ class Solution {
         visited[r][c] = true;
         
         for (int[] dir : dirs) {
-            // int nr = r + dir[0];
-            // int nc = c + dir[1];
+            int nr = r + dir[0];
+            int nc = c + dir[1];
             
-            dfs(grid, r + dir[0], c + dir[1], q, visited);
+            dfs(grid, nr, nc, q, visited);
+            
+            // (grid, r + dir[0], c + dir[1], q, visited);
         }
     }
 }
