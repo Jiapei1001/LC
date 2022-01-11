@@ -4,13 +4,13 @@ class Solution {
         List<List<String>> res = new ArrayList<>();
         
         List<Integer> path = new ArrayList<>();
-        // Set<Integer> visited = new HashSet<>();
-        dfs(n, path, res);
+        Set<Integer> visited = new HashSet<>();
+        dfs(n, visited, path, res);
         
         return res;
     }
     
-    private void dfs(int n, List<Integer> path, List<List<String>> res) {
+    private void dfs(int n, Set<Integer> visited, List<Integer> path, List<List<String>> res) {
         if (path.size() == n) {
             List<String> cand = printBoard(path);
             res.add(new ArrayList<String>(cand));
@@ -18,17 +18,17 @@ class Solution {
         }
         
         for (int i = 0; i < n; i++) {
-            // if (visited.contains(i)) {
-            //     continue;
-            // }
+            if (visited.contains(i)) {
+                continue;
+            }
             
             if (isValid(path, i)) {
-                // visited.add(i);
+                visited.add(i);
                 path.add(i);
                 
-                dfs(n, path, res);
+                dfs(n, visited, path, res);
                 
-                // visited.remove(visited.size() - 1);
+                visited.remove(i);
                 path.remove(path.size() - 1);
             }
         }
@@ -40,7 +40,7 @@ class Solution {
         for (int r = 0; r < currRow; r++) {
             int prev = path.get(r);
             
-            if (i == prev) return false;
+            // if (i == prev) return false;
             
             int colDiff = Math.abs(i - prev);
             int rowDiff = Math.abs(currRow - r);
