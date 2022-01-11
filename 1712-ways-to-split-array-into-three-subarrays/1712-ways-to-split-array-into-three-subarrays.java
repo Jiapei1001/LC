@@ -14,13 +14,18 @@ class Solution {
         
         // 1, 2, 2, 2, 5, 0
         // 1, 3, 5, 7, 12, 12
-        // ( ]
+        // [ ]
         
         int res = 0;
+        
+        // [0, i], [i + 1, l], [l + 1, n - 1]
+        // [0, i], [i + 1, r], [r + 1, n - 1]
+        // 注意这里是left，因此是从 0 到 n - 2
         for (int i = 0; i < n - 2; i++) {
             if (prefixSum[i] > (prefixSum[n - 1] - prefixSum[i]) / 2) {
                 break;
             }
+            
             int l = bs(prefixSum, prefixSum[i], i, true);
             int r = bs(prefixSum, prefixSum[i], i, false);
             
@@ -34,8 +39,11 @@ class Solution {
     
     private int bs(int[] prefixSum, int leftSum, int leftIndex, boolean isLeft) {
         int n = prefixSum.length;
+        
         int l = leftIndex + 1;
-        int r = n - 1;
+        // left, mid, right, 因为是prefixSum相减，因此r是从right最大值开始。
+        // 当 r == n - 1 时，保证right是 n - 1
+        int r = n - 2;
         
         int res = -1;
         while (l + 1 < r) {
@@ -54,13 +62,22 @@ class Solution {
             }
         }
         
-        if (leftSum <= (prefixSum[l] - leftSum) && (prefixSum[l] - leftSum) <= (prefixSum[n - 1] - prefixSum[l])) {
-            return l;
+        if (isLeft) {
+            if (leftSum <= (prefixSum[l] - leftSum) && (prefixSum[l] - leftSum) <= (prefixSum[n - 1] - prefixSum[l])) {
+                return l;
+            }
+            if (leftSum <= (prefixSum[r] - leftSum) && (prefixSum[r] - leftSum) <= (prefixSum[n - 1] - prefixSum[r])) {
+                return r;
+            }
+            return -1;
+        } else {
+            if (leftSum <= (prefixSum[r] - leftSum) && (prefixSum[r] - leftSum) <= (prefixSum[n - 1] - prefixSum[r])) {
+                return r;
+            }
+            if (leftSum <= (prefixSum[l] - leftSum) && (prefixSum[l] - leftSum) <= (prefixSum[n - 1] - prefixSum[l])) {
+                return l;
+            }
+            return -1;
         }
-        if (leftSum <= (prefixSum[r] - leftSum) && (prefixSum[r] - leftSum) <= (prefixSum[n - 1] - prefixSum[r])) {
-            return r;
-        }
-        
-        return -1;
     }
 }
