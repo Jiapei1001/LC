@@ -41,8 +41,8 @@ class Solution {
         int n = prefixSum.length;
         
         int l = leftIndex + 1;
-        // left, mid, right, 因为是prefixSum相减，因此r是从right最大值开始。
-        // 当 r == n - 1 时，保证right是 n - 1
+        // left, mid, right, 因为是prefixSum相减，因此r是从n - 2开始。
+        // 当 r == n - 2 时，保证right是 n - 1
         int r = n - 2;
         
         int res = -1;
@@ -62,6 +62,7 @@ class Solution {
             }
         }
         
+        // 找最左，找最右
         if (isLeft) {
             if (leftSum <= (prefixSum[l] - leftSum) && (prefixSum[l] - leftSum) <= (prefixSum[n - 1] - prefixSum[l])) {
                 return l;
