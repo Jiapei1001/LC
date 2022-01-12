@@ -23,6 +23,7 @@ class Solution {
             if (need.containsKey(right)) {
                 curr.put(right, curr.getOrDefault(right, 0) + 1);
                 
+                // PS：使用 Java 的读者要尤其警惕语言特性的陷阱。Java 的 Integer，String 等类型判定相等应该用 equals 方法而不能直接用等号 ==，这是 Java包装类的一个隐晦细节。所以在左移窗口更新数据的时候，不能直接改写为 window.get(d) == need.get(d)，而要用 window.get(d).equals(need.get(d))，之后的题目代码同理。
                 if (curr.get(right).equals(need.get(right))) {
                     valid++;
                 }
