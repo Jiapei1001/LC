@@ -58,11 +58,10 @@ class Solution {
                 i--;
                 cnt = cnt == 0 ? 1 : cnt;
                 
-//                 Map<String, Integer> last = stack.pop();
-//                 last.put(curr, last.getOrDefault(curr, 0) + cnt);
+                Map<String, Integer> last = stack.pop();
+                last.put(curr, last.getOrDefault(curr, 0) + cnt);
                 
-//                 stack.push(last);
-                stack.peek().put(curr, stack.peek().getOrDefault(curr, 0) + cnt);
+                stack.push(last);
             }
         }
         
