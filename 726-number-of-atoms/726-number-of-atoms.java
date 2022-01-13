@@ -1,5 +1,82 @@
 class Solution {
     
+    private int i = 0;
+    
+    public String countOfAtoms(String formula) {
+        char[] sArr = formula.toCharArray();
+        TreeMap<String, Integer> map = getFormula(sArr);
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for (String s : map.keySet()) {
+            sb.append(s);
+            if (map.get(s) > 1) sb.append(map.get(s));
+        }
+        
+        return sb.toString();
+    }
+    
+    
+    private TreeMap<String, Integer> getFormula(char[] sArr) {
+        TreeMap<String, Integer> res = new TreeMap<>();
+        
+        while(i < sArr.length) {
+            if (sArr[i] == '(') {
+                // next recursion level
+                // operations on prev and curr level
+                i++;
+                TreeMap<String, Integer> next = getFormula(sArr);
+                int nextCnt = getCount(sArr);
+                
+                for (String s : next.keySet()) {
+                    res.put(s, res.getOrDefault(s, 0) + next.get(s) * nextCnt);
+                }
+                
+            } else if (sArr[i] == ')') {
+                i++;
+                return res;
+                
+            } else {
+                String next = getName(sArr);
+                int nextCnt = getCount(sArr);
+                
+                res.put(next, res.getOrDefault(next, 0) + nextCnt);
+            }
+        }
+        
+        return res;
+    }
+    
+    private String getName(char[] sArr) {
+        StringBuilder sb = new StringBuilder();
+        
+        // NOTE: append the first Upper Letter
+        sb.append(sArr[i]);
+        i++;
+        
+        while (i < sArr.length && Character.isLetter(sArr[i]) && sArr[i] >= 'a' && sArr[i] <= 'z') {
+            sb.append(sArr[i]);
+            i++;
+        }
+        
+        return sb.toString();
+    }
+    
+    private int getCount(char[] sArr) {
+        int cnt = 0;
+        
+        while (i < sArr.length && Character.isDigit(sArr[i])) {
+            cnt = cnt * 10 + (sArr[i] - '0');
+            i++;
+        }
+        
+        return cnt == 0 ? 1 : cnt;
+    }
+    
+    
+    
+    
+    /*
     public String countOfAtoms(String formula) {
         int n = formula.length();
         char[] sArr = formula.toCharArray();
@@ -38,8 +115,8 @@ class Solution {
                 
                 stack.push(newLevel);
                 
-                
             } else {
+                // NOTE: avoid continuous Upper Letter
                 String curr = sArr[i] + "";
                 i++;
                 
@@ -77,6 +154,7 @@ class Solution {
         
         return sb.toString();
     }
+    */
     
     
     
