@@ -1,4 +1,46 @@
 class Solution {
+    
+    public int[] sortArray(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+        
+        return nums;
+    }
+    
+    private void quickSort(int[] nums, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        
+        int l = left, r = right;
+        int pivot = nums[(l + r) / 2];
+        
+        while (l <= r) {
+            
+            while (l <= r && nums[l] < pivot) {
+                l++;
+            }
+            
+            while (l <= r && nums[r] > pivot) {
+                r--;
+            }
+            
+            if (l <= r) {
+                int temp = nums[l];
+                nums[l] = nums[r];
+                nums[r] = temp;
+                
+                l++;
+                r--;
+            }
+        }
+        
+        quickSort(nums, left, r);
+        quickSort(nums, l, right);
+    }
+    
+    
+    // Merge Sort
+    /*
     public int[] sortArray(int[] nums) {
         divide(nums, 0, nums.length - 1);
         
@@ -51,4 +93,5 @@ class Solution {
             nums[i] = temp[idx++];
         }
     }
+    */
 }
