@@ -23,6 +23,46 @@ class Node {
 
 class Solution {
     
+    public Node cloneGraph(Node node) {
+        if (node == null) {
+            return node;
+        }
+        
+        Map<Node, Node> map = new HashMap<>();
+        
+        Queue<Node> q = new LinkedList<>();
+        
+        q.offer(node);
+        
+        while (!q.isEmpty()) {
+            Node curr = q.poll();
+            
+            Node copy = new Node(curr.val);
+            
+            map.putIfAbsent(curr, copy);
+            
+            for (Node next : curr.neighbors) {
+                // enqueue
+                if (!map.containsKey(next)) {
+                    map.putIfAbsent(next, new Node(next.val));
+                    
+                    q.offer(next);
+                }
+                
+                // mapping
+                map.get(curr).neighbors.add(map.get(next));
+            }
+        }
+        
+        return map.get(node);
+    }
+
+    
+    
+    
+    
+    // DFS
+    /*
     Map<Node, Node> map = new HashMap<>();
     
     public Node cloneGraph(Node node) {
@@ -43,8 +83,7 @@ class Solution {
         
         return copy;
     }
-    
-    
+    */
     
     
     
