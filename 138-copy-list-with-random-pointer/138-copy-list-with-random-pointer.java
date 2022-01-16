@@ -15,7 +15,43 @@ class Node {
 
 class Solution {
     
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return head;
+        }
         
+        Map<Node, Node> map = new HashMap<>();
+        
+        Queue<Node> q = new LinkedList<>();
+        q.offer(head);
+        map.putIfAbsent(head, new Node(head.val));
+        
+        while (!q.isEmpty()) {
+            Node curr = q.poll();
+            
+            if (curr.next != null) {
+                if (!map.containsKey(curr.next)) {
+                    q.offer(curr.next);
+                    map.putIfAbsent(curr.next, new Node(curr.next.val));
+                }
+                map.get(curr).next = map.get(curr.next);
+            }
+            
+            if (curr.random != null) {
+                if (!map.containsKey(curr.random)) {
+                    q.offer(curr.random);
+                    map.putIfAbsent(curr.random, new Node(curr.random.val));
+                }
+                map.get(curr).random = map.get(curr.random);
+            }
+        }
+        
+        return map.get(head);
+    }
+    
+    
+    // DFS
+    /*
     Map<Node, Node> map = new HashMap<>();
     
     public Node copyRandomList(Node head) {
@@ -34,7 +70,7 @@ class Solution {
         
         return map.get(head);
     }
-    
+    */
     
     
     
