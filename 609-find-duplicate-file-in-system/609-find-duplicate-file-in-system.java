@@ -27,7 +27,7 @@ class Solution {
         
         for (Map.Entry<String, List<String>> e : content2Path.entrySet()) {
             if (e.getValue().size() > 1) {
-                res.add(new ArrayList<String>(e.getValue()));
+                res.add(e.getValue());
             }
         }
         
