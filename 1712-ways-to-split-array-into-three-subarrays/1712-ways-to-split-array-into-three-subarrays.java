@@ -5,6 +5,47 @@ class Solution {
     public int waysToSplit(int[] nums) {
         int n = nums.length;
         
+        int[] prefixSum = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+        }
+        
+        int m = 0, k = 0;
+        
+        int res = 0;
+        for (int l = 0; l < n - 2; l++) {
+            int leftSum = prefixSum[l + 1];
+            
+            if (leftSum > (prefixSum[n] - prefixSum[l + 1]) / 2) {
+                break;
+            }
+            
+            // L <= M
+            // first l, where L <= M
+            while (m <= l || m < n - 1 && prefixSum[m + 1] - prefixSum[l + 1] < leftSum) {
+                m++;
+            }
+            
+            // M <= R
+            // first k, after M <= R, to make M > R
+            // NOTE: prefixSum[k + 1] - prefixSum[l + 1]，这里是与l相比较，因为l已经被fixed了，不是m
+            while (k < m || k < n - 1 && prefixSum[k + 1] - prefixSum[l + 1] <= prefixSum[n] - prefixSum[k + 1]) {
+                k++;
+            }
+            
+            if (k >= m) {
+                res = (res + (k - m)) % MOD;
+            }
+        }
+        
+        return res;
+    }
+    
+    
+    /*
+    public int waysToSplit(int[] nums) {
+        int n = nums.length;
+        
         int[] prefixSum = new int[n];
         
         prefixSum[0] = nums[0];
@@ -41,6 +82,7 @@ class Solution {
         int n = prefixSum.length;
         
         int l = leftIndex + 1;
+        // NOTE: [ ), thus must outside from n - 2, (n - 2) + 1
         int r = n - 1;
         
         int res = -1;
@@ -63,6 +105,8 @@ class Solution {
         
         return res;
     }
+    */
+    
     
     /*
     private int bs(int[] prefixSum, int leftSum, int leftIndex, boolean isLeft) {
