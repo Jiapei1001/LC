@@ -41,6 +41,34 @@ class Solution {
         int n = prefixSum.length;
         
         int l = leftIndex + 1;
+        int r = n - 1;
+        
+        int res = -1;
+        
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            int midSum = prefixSum[mid] - prefixSum[leftIndex];
+            int rightSum = prefixSum[n - 1] - prefixSum[mid];
+            
+            if (leftSum <= midSum && midSum <= rightSum) {
+                res = mid;
+                if (isLeft) r = mid;
+                else l = mid + 1;
+            } else if (midSum < leftSum) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        
+        return res;
+    }
+    
+    /*
+    private int bs(int[] prefixSum, int leftSum, int leftIndex, boolean isLeft) {
+        int n = prefixSum.length;
+        
+        int l = leftIndex + 1;
         // left, mid, right, 因为是prefixSum相减，因此r是从n - 2开始。
         // 当 r == n - 2 时，保证right是 n - 1
         int r = n - 2;
@@ -81,4 +109,5 @@ class Solution {
             return -1;
         }
     }
+    */
 }
