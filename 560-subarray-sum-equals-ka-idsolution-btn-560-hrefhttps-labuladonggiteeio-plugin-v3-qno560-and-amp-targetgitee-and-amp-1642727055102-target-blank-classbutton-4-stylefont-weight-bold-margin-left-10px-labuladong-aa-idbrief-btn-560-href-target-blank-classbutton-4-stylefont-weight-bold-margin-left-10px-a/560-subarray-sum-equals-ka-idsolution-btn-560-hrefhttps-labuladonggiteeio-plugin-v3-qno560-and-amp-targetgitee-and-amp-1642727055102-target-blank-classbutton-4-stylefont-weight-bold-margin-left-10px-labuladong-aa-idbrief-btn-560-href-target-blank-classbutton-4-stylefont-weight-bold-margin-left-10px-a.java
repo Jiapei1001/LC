@@ -13,32 +13,15 @@ class Solution {
         
         int res = 0;
         for (int i = 0; i < n; i++) {
-            
             if (prefixSum[i] == k) {
                 res++;
             } {
-                int temp1 = prefixSum[i] - k;
-                res += count.getOrDefault(temp1, 0);
+                int temp = prefixSum[i] - k;
+                res += count.getOrDefault(temp, 0);
             }
             
             count.put(prefixSum[i], count.getOrDefault(prefixSum[i], 0) + 1);
         }
-        
-        
-        // [1,1,1]
-        // [1,2,3]
-        // 2
-//         for (int i = 0; i < n; i++) {
-//             if (prefixSum[i] == k) {
-//                 res++;
-//                 continue;
-//             }
-//             int temp1 = prefixSum[i] + k;
-//             res += count.getOrDefault(temp1, 0);
-            
-// //             int temp2 = prefixSum[i] - k;
-// //             res += count.getOrDefault(temp2, 0);
-//         }
         
         return res;
     }
