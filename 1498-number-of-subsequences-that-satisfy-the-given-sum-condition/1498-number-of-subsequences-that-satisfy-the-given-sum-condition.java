@@ -1,4 +1,5 @@
 class Solution {
+    
     private int MOD = (int) 1e9 + 7;
     
     public int numSubseq(int[] nums, int target) {
