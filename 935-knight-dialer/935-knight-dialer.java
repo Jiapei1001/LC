@@ -6,7 +6,7 @@ class Solution {
                             {2, 1}, {-2, 1}, {2, -1}, {-2, -1}};
     
     public int knightDialer(int n) {
-        int[][] dp = getBoard();
+        int[][] dp = initBaseBoard();
         
         for (int k = 0; k < n - 1; k++) {
             // NOTE: 这里不可以是getBoard()起始状态，因为会多增加1
@@ -44,7 +44,7 @@ class Solution {
         return res;
     }
     
-    private int[][] getBoard() {
+    private int[][] initBaseBoard() {
         int[][] board = new int[4][3];
         for (int[] b : board) {
             Arrays.fill(b, 1);
