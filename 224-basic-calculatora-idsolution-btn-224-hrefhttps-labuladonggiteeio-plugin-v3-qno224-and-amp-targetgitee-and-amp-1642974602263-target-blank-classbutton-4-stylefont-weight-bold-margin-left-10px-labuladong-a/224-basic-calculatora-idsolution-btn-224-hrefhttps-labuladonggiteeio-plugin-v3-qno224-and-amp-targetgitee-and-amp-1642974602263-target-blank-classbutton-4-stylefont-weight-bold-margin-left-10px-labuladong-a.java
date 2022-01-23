@@ -15,10 +15,6 @@ class Solution {
                 stack.push(operator * num);
                 break;
             }
-            else if (sArr[i] == ' ') {
-                i++;
-                continue;
-            }
             else if (sArr[i] == '(') {
                 i++;
                 num = calculate(s);
@@ -26,11 +22,12 @@ class Solution {
             else if (Character.isDigit(sArr[i])) {
                 num = num * 10 + (sArr[i] - '0');
             }
-            else if (!Character.isDigit(sArr[i])) {
+            else if (!Character.isDigit(sArr[i]) && sArr[i] != ' ') {
                 stack.push(operator * num);
                 operator = sArr[i] == '+' ? 1 : -1;
                 num = 0;
             }
+            // 这一步必须加在后面！！否则遇到 ) 就会停止
             i++;
         }
         
