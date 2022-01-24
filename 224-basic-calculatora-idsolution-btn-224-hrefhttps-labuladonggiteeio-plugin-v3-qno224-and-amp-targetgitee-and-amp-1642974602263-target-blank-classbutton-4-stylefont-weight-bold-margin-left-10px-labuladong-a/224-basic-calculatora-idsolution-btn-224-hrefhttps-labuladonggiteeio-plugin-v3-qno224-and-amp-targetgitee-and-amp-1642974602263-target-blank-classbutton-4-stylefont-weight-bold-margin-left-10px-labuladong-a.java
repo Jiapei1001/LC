@@ -1,6 +1,4 @@
 class Solution {
-
-    private int i = 0;
     
     public int calculate(String s) {
         Stack<Integer> stack = new Stack<>();
@@ -10,25 +8,34 @@ class Solution {
         
         char[] sArr = s.toCharArray();
         
-        while (i <= sArr.length) {
-            if (i == sArr.length || sArr[i] == ')') {
-                stack.push(operator * num);
-                break;
-            }
-            else if (sArr[i] == '(') {
-                i++;
-                num = calculate(s);
-            }
-            else if (Character.isDigit(sArr[i])) {
+        int n = s.length();
+        
+        for(int i = 0; i < n; i++) {
+            if (Character.isDigit(sArr[i])) {
                 num = num * 10 + (sArr[i] - '0');
             }
-            else if (!Character.isDigit(sArr[i]) && sArr[i] != ' ') {
+            
+            if (sArr[i] == '(') {
+                int j = i + 1;
+                int brace = 1;
+                
+                for (; j < n; j++) {
+                    if (sArr[j] == '(') brace++;
+                    if (sArr[j] == ')') brace--;
+                    if (brace == 0) break;
+                }
+                
+                // NOTE: 此时i的位置在(，j的位置在)，这样讨论的是()的内部！！
+                num = calculate(s.substring(i + 1, j));
+                
+                i = j;
+            }
+            
+            if ((!Character.isDigit(sArr[i]) && sArr[i] != ' ') || i == n - 1) {
                 stack.push(operator * num);
                 operator = sArr[i] == '+' ? 1 : -1;
                 num = 0;
             }
-            // 这一步必须加在后面！！否则遇到 ) 就会停止
-            i++;
         }
         
         int res = 0;
