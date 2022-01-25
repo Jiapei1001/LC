@@ -7,18 +7,12 @@ class Solution {
             map.put(p.get(0), p.get(1));
         }
         
-        Map<String, String> memo = new HashMap<>();
-        
-        return process(s, map, memo);
+        return process(s, map);
     }
     
-    private String process(String s, Map<String, String> map, Map<String, String> memo) {
+    private String process(String s, Map<String, String> map) {
         if (s == null || s.length() == 0) {
             return "";
-        }
-        
-        if (memo.containsKey(s)) {
-            return memo.get(s);
         }
         
         String res = "";
@@ -48,8 +42,6 @@ class Solution {
         }
         
         // res += process(s.substring(j + 1), map, memo);
-        
-        memo.put(s, res);
         
         return res;
     }
