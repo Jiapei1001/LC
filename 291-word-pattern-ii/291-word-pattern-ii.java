@@ -3,6 +3,7 @@ class Solution {
     public boolean wordPatternMatch(String pattern, String s) {    
         Map<Character, String> map = new HashMap<>();
         Set<String> visited = new HashSet<>();
+        
         return dfs(pattern, s, 0, 0, map, visited);
     }
     
@@ -31,6 +32,7 @@ class Solution {
         for (int j = si + 1; j <= s.length(); j++) {
             String temp = s.substring(si, j);
             
+            // NOTE: visited avoid same string that had been mapped before
             if (visited.contains(temp)) {
                 continue;
             }
@@ -48,7 +50,6 @@ class Solution {
 
         return false;
     }
-    
     
     
     /*
