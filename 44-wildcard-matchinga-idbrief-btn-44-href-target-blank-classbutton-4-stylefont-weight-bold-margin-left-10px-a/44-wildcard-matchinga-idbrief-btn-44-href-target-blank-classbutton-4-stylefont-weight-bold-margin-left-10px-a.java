@@ -1,14 +1,18 @@
 class Solution {
+    
+    int n;
+    int m;
+    
     public boolean isMatch(String s, String p) {
         Map<String, Boolean> memo = new HashMap<>();
+        
+        n = s.length();
+        m = p.length();
         
         return dfs(s, 0, p, 0, memo);
     }
     
-    private boolean dfs(String s, int si, String p, int pi, Map<String, Boolean> memo) {
-        int n = s.length();
-        int m = p.length();
-        
+    private boolean dfs(String s, int si, String p, int pi, Map<String, Boolean> memo) {   
         if (si == n && pi == m) {
             return true;
         }
