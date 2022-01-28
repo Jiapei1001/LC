@@ -2,6 +2,7 @@ class Solution {
     public int minDifficulty(int[] jobDifficulty, int d) {
         int n = jobDifficulty.length;
         
+        // cannot be divided into d days, as it must finish one job per day
         if (n < d) return -1;
         
         // f(i, k) := the minimal sum of job difficulty for the front i days, with k partitions
@@ -15,7 +16,7 @@ class Solution {
         // for the front i days, with only 1 partition
         int maxD = 0;
         for (int i = 0; i < n; i++) {
-            dp[i][0] = 0;
+            // dp[i][0] = 0;
             
             maxD = Math.max(maxD, jobDifficulty[i]);
             dp[i][1] = maxD;
