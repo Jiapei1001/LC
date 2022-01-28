@@ -16,7 +16,8 @@ class Solution {
         // for the front i days, with only 1 partition
         int maxD = 0;
         for (int i = 0; i < n; i++) {
-            // dp[i][0] = 0;
+            // for dp[i][0], k == 0, it is unnecessary, but added here
+            dp[i][0] = 0;
             
             maxD = Math.max(maxD, jobDifficulty[i]);
             dp[i][1] = maxD;
