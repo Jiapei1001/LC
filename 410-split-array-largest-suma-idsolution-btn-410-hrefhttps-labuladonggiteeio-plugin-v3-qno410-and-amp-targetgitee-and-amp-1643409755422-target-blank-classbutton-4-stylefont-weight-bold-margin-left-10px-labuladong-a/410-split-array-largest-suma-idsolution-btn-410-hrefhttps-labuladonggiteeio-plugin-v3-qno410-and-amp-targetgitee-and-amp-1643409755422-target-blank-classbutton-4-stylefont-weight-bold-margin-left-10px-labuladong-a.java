@@ -33,7 +33,7 @@ class Solution {
         
         int res = Integer.MAX_VALUE;
         
-        for (int j = i; j < nums.length; j++) {
+        for (int j = i; j < nums.length - k + 1; j++) {
             // [i, j]
             int tempSum = i > 0 ? prefixSum[j] - prefixSum[i - 1] : prefixSum[j];
             
