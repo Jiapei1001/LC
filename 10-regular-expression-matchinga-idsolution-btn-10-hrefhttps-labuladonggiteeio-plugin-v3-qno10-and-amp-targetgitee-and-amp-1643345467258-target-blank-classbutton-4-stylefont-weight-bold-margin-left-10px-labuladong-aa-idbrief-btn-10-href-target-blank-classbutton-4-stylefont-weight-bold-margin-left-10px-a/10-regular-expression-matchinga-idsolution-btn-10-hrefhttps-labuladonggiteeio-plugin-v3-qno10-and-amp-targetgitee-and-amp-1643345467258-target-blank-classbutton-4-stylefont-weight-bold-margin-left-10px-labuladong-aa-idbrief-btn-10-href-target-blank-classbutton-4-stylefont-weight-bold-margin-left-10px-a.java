@@ -26,13 +26,13 @@ class Solution {
         
         for (int i = 1; i <= n; i++)
             for (int j = 1; j <= m; j++) {
-                // dp[i][j] = false;
-                
+                // Character 相同
                 if (sArr[i - 1] == pArr[j - 1]) {
                     dp[i][j] = dp[i - 1][j - 1];
                     continue;
                 }
                 
+                // Character j 是regular expression
                 if (pArr[j - 1] == '.') {
                     dp[i][j] |= dp[i - 1][j - 1];
                 } else if (pArr[j - 1] == '*') {
@@ -44,6 +44,7 @@ class Solution {
                         if (sArr[i - 1] == pArr[j - 2] || pArr[j - 2] == '.') {
                             dp[i][j] |= dp[i - 1][j];
                         }
+                        // 上面也可以把if条件句加到boolean condition里面，使用&&
                     }
                 }
             }
