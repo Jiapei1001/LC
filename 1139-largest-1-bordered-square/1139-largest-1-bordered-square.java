@@ -16,13 +16,17 @@ class Solution {
             }
         
         int res = 0;
+        
         for (int r = 0; r < n; r++)
             for (int c = 0; c < m; c++) {
                 if (h[r][c] > 0 && v[r][c] > 0) {
+                    
+                    // NOTE: here get the min value
                     int temp = Math.min(h[r][c], v[r][c]);
                     
                     // NOTE: here must add additional loop, from temp -> 1
                     // without this loop will trigger error!!
+                    // 因为不一定要只取最大的temp，比temp小的数也可能形成Square
                     for (int k = temp; k >= 1; k--) {
                         if (r >= k - 1 && h[r - k + 1][c] >= k &&
                             c >= k - 1 && v[r][c - k + 1] >= k) {
