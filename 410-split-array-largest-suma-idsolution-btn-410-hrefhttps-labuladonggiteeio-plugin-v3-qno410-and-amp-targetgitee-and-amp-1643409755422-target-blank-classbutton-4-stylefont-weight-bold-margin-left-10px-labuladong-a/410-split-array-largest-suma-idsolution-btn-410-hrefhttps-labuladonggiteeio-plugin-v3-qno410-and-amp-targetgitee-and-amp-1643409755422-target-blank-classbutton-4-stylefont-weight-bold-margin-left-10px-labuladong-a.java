@@ -1,6 +1,5 @@
 class Solution {
     public int splitArray(int[] nums, int m) {
-        
         int n = nums.length;
         
         int[] prefixSum = new int[n];
