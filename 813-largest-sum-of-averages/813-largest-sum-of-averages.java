@@ -1,42 +1,44 @@
 class Solution {
-    
-//     public double largestSumOfAverages(int[] nums, int k) {        
-//         int n = nums.length;
+    public double largestSumOfAverages(int[] nums, int k) {        
+        int n = nums.length;
         
-//         int[] prefixSum = new int[n + 1];
+        double[] prefixSum = new double[n + 1];
         
-//         for (int i = 1; i <= n; i++) {
-//             prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
-//         }
+        for (int i = 1; i <= n; i++) {
+            prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+        }
         
-//         // f(i, k) := represent the maximum sum of average for nums[i:]
-//         //    NOTE: here nums[i:] starts from i
-//         // f(i, k) = MAX{ f(i, k) OR f(j, k - 1) + Average(i, j), where i + 1 <= j <= n }
+        // f(i, k) := represent the maximum sum of average for nums[:i]
+        //    NOTE: here nums[i:] starts from i
+        // f(i, k) = MAX{ f(i, k) OR f(j, k - 1) + Average(i, j), where 1 <= j < i }
         
-//         double[][] dp = new double[n][k + 1];
+        double[][] dp = new double[n + 1][k + 1];
         
-//         // NOTE: dp[i][k] represents the largest sum starting from i
-//         // as k is the at most, thus k is the base case, and doesn't matter in this case
+        // NOTE: dp[i][k] represents the largest sum starting from i
+        // as k is the at most, thus k is the base case, and doesn't matter in this case
         
-//         // NOTE: here k is 1, as only one segment!!
-//         for (int i = 0; i < n; i++) dp[i][1] = (prefixSum[n] - prefixSum[i]) / (n - i);
+        // NOTE: here k is 1, as only one segment!!
+        // NOTE: here it is average, thus it must be prefixSum[i] / i
+        // if it is prefixSum[i] / 1, then it is sum!!
+        for (int i = 1; i <= n; i++) dp[i][1] = prefixSum[i] / i;
         
-//         for (int m = 2; m <= k; m++)
-//             for (int i = 0; i < n; i++) {
-//                 for (int j = i + 1; j < n; j++) {
+        for (int m = 2; m <= k; m++)
+            for (int i = m; i <= n; i++) {
+                for (int j = i - 1; j >= 0; j--) {
                     
-//                     double tempAverage = (prefixSum[j] - prefixSum[i]) / (j - i);
+                    double tempAverage = (double) (prefixSum[i] - prefixSum[j]) / (i - j);
                     
-//                     // don't divide vs. add another partitoin
-//                     dp[i][m] = Math.max(dp[i][m],
-//                                         dp[j][m - 1] + tempAverage);
-//                 }
-//             }
+                    // don't divide vs. add another partitoin
+                    dp[i][m] = Math.max(dp[i][m],
+                                        dp[j][m - 1] + tempAverage);
+                }
+            }
         
-//         return dp[0][k];
-//     }
+        return dp[n][k];
+    }
     
     
+    /*
     public double largestSumOfAverages(int[] nums, int k) {        
         int n = nums.length;
         
@@ -72,6 +74,7 @@ class Solution {
         
         return dp[1][k];
     }
+    */
     
     
     
