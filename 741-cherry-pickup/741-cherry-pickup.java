@@ -34,7 +34,8 @@ class Solution {
         }
         
         // NOTE: base case for returning
-        // check if we reached the end state (note that if r1,c1 reached the end, this implies that r2,c2 also reached the end)
+        // check if we reached the end state 
+        // (note that if r1,c1 reached the end, this implies that r2,c2 also reached the end)
         if (r1 == n - 1 && c1 == n - 1) {
             return grid[r1][c1];
         }
