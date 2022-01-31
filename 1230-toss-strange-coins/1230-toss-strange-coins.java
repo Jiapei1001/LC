@@ -15,14 +15,14 @@ class Solution {
         dp[0][0] = 1.0;
         
         for (int i = 1; i <= n; i++) {
-            // dp[i][1] = prob[i - 1];
+            // NOTE: 这个base case是硬币连续反面，因此是(1 - p)
             dp[i][0] = dp[i - 1][0] * (1 - prob[i - 1]);
         }
         
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= target; j++) {
                 // NOTE: 这里j一定要从0开始，这样可以满足base case，然后判断j - 1 < 0 or not！！
-                dp[i][j] += (j - 1 < 0) ? 0 : dp[i - 1][j - 1] * prob[i - 1];
+                dp[i][j] += dp[i - 1][j - 1] * prob[i - 1];
                 
                 dp[i][j] += dp[i - 1][j] * (1 - prob[i - 1]);
             }
