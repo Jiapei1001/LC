@@ -1,6 +1,6 @@
 class Solution {
     public int uniquePaths(int m, int n) {
-        long[][] dp = new long[m][n];
+        int[][] dp = new int[m][n];
         
         dp[0][0] = 1;
         
@@ -13,6 +13,6 @@ class Solution {
             }
         }
         
-        return (int) dp[m - 1][n - 1];
+        return dp[m - 1][n - 1];
     }
 }
