@@ -22,9 +22,8 @@ class Solution {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= target; j++) {
                 // NOTE: 这里j一定要从0开始，这样可以满足base case，然后判断j - 1 < 0 or not！！
-                dp[i][j] += dp[i - 1][j - 1] * prob[i - 1];
-                
-                dp[i][j] += dp[i - 1][j] * (1 - prob[i - 1]);
+                dp[i][j] = dp[i - 1][j - 1] * prob[i - 1] + 
+                           dp[i - 1][j] * (1 - prob[i - 1]);
             }
         }
         
