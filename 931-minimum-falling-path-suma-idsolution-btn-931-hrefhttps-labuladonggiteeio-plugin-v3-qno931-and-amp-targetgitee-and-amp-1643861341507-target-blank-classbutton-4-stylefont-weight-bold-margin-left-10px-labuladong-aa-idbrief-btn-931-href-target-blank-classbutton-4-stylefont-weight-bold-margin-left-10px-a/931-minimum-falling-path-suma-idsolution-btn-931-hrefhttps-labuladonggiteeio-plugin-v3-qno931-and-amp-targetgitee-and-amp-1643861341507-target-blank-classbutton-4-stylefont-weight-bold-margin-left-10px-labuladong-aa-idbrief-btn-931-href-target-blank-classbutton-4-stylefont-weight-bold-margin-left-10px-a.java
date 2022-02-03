@@ -1,4 +1,48 @@
 class Solution {
+    
+    // Top Down
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length, m = matrix[0].length;
+        
+        int[][] memo = new int[n][m];
+        
+        for (int[] row : memo) Arrays.fill(row, 100000000);
+        
+        int res = Integer.MAX_VALUE;
+        for (int j = 0; j < m; j++) {
+            res = Math.min(res, dfs(matrix, n - 1, j, memo));
+        }
+        
+        return res;
+    }
+    
+    private int dfs(int[][] matrix, int i, int j, int[][] memo) {
+        // first row
+        if (i == 0 && j >= 0 && j < matrix[0].length) {
+            return matrix[i][j];
+        }
+        
+        // out of boundary
+        if (i < 0 || j < 0 || j >= matrix[0].length) {
+            return Integer.MAX_VALUE;
+        }
+        
+        if (memo[i][j] != 100000000) {
+            return memo[i][j];
+        }
+        
+        memo[i][j] = matrix[i][j] + 
+            Math.min(dfs(matrix, i - 1, j, memo), 
+                     Math.min(dfs(matrix, i - 1, j - 1, memo),
+                              dfs(matrix, i - 1, j + 1, memo))
+                    );
+        
+        return memo[i][j];
+    }
+    
+    
+    // Bottom Up
+    /*
     public int minFallingPathSum(int[][] matrix) {
         
         int n = matrix.length, m = matrix[0].length;
@@ -25,4 +69,5 @@ class Solution {
         
         return res;
     }
+    */
 }
