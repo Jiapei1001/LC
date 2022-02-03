@@ -32,6 +32,7 @@ class Solution {
     
     private void dfs(String[] req_skills, int i, Map<String, Set<Integer>> map2Ppl, 
                      Set<Integer> path, int[] minNum) {
+        // 这一步pruning非常重要，否则会TLE！！
         if (path.size() > minNum[0]) {
             return;
         }
@@ -45,10 +46,8 @@ class Solution {
             return;
         }
         
-        
         String currSkill = req_skills[i];
         Set<Integer> pplHaveSkill = map2Ppl.get(currSkill);
-        
         
         // check path & pplHaveSkill intersection
         Set<Integer> intersection = new HashSet<>();
