@@ -1,4 +1,57 @@
 class Solution {
+    
+    
+    public static class MonotonicQueue {
+        LinkedList<Integer> q;
+
+        public MonotonicQueue() {
+            this.q = new LinkedList<>();
+        }
+
+        public void enqueue(int i) {
+            while (!q.isEmpty() && q.peekLast() < i) {
+                q.pollLast();
+            }
+            q.offerLast(i);
+        }
+
+        public int getMax() {
+            return q.peekFirst();
+        }
+
+        public void delete(int i) {
+            if (i == q.peekFirst()) {
+                q.pollFirst();
+            }
+        }
+    }
+
+    public static int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+
+        MonotonicQueue q = new MonotonicQueue();
+
+        int[] res = new int[n - k + 1];
+        int idx = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (i < k - 1) {
+                q.enqueue(nums[i]);
+            } else {
+                q.enqueue(nums[i]);
+                res[idx++] = q.getMax();
+                // NOTE: here is not i - k, as the current getMax is complete,
+                // this is for getting ready for next window, thus needs +1
+                q.delete(nums[i - k + 1]);
+            }
+        }
+
+        return res;
+    }
+    
+    
+    // Deque + 2 while loops
+    /*
     public int[] maxSlidingWindow(int[] nums, int k) {
         
         // monotonic queue, stores index
@@ -32,6 +85,7 @@ class Solution {
         
         return res;
     }
+    */
     
     
     
