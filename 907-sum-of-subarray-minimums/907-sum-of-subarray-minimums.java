@@ -1,6 +1,6 @@
 class Solution {
     
-    private static final int MOD = 1000000007;
+    private static final int MOD = (int) 1e9 + 7;
 
     public int sumSubarrayMins(int[] arr) {
         int n = arr.length;
