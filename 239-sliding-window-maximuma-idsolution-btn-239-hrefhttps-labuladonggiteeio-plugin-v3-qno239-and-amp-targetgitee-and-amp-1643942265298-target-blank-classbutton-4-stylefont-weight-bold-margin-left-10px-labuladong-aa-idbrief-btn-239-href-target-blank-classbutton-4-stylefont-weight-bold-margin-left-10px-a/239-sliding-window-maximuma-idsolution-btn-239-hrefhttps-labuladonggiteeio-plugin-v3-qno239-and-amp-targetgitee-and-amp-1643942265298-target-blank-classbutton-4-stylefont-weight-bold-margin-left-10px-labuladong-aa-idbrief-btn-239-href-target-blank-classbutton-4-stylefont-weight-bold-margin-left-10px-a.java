@@ -2,7 +2,7 @@ class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         
         // monotonic queue, stores index
-        // reverse & increasing
+        // increasing, right the biggest, left the smallest
         // if out of boundary, poll()
         
         int n = nums.length;
@@ -21,7 +21,7 @@ class Solution {
             q.offerLast(i);
             
             // remove the first one if it is out of boundary
-            if (i - q.peekFirst() >= k) {
+            while (i - q.peekFirst() >= k) {
                 q.pollFirst();
             }
             
