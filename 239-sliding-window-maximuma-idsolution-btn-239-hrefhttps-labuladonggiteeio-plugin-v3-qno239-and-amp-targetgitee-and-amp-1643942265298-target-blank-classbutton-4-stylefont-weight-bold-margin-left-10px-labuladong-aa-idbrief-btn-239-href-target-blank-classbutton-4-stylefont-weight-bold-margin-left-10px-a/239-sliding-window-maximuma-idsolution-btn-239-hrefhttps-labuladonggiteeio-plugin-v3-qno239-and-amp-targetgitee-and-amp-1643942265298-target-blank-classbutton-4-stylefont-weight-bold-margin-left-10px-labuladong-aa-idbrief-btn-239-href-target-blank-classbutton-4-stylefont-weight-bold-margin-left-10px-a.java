@@ -12,7 +12,7 @@ class Solution {
         
         int idx = 0;
         for (int i = 0; i < nums.length; i++) {
-            while (!q.isEmpty() && nums[i] >= nums[q.peekLast()]) {
+            while (!q.isEmpty() && nums[i] > nums[q.peekLast()]) {
                 // this one is not useful anymore
                 q.pollLast();
             }
