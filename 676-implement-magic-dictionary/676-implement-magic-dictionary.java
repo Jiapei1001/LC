@@ -37,6 +37,8 @@ class MagicDictionary {
         
         char c = s.charAt(i);
         
+        // 此处是两种平行的情况
+        // 不改变，继续找
         // don't use flag
         if (curr.children.containsKey(c)) {
             if (dfs(s, i + 1, curr.children.get(c), flag)) {
@@ -44,6 +46,7 @@ class MagicDictionary {
             }
         }
         
+        // 改变，那么下一个char next必须不是char c
         // must not used before
         if (!flag) {
             for (char next : curr.children.keySet()) {
