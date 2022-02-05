@@ -47,6 +47,7 @@ class MagicDictionary {
         // must not used before
         if (!flag) {
             for (char next : curr.children.keySet()) {
+                // NOTE: here next MUST NOT EQUAL TO c
                 if (next != c && dfs(s, i + 1, curr.children.get(next), true)) {
                     return true;
                 }
