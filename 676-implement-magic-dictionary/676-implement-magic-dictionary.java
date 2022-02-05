@@ -1,5 +1,4 @@
 class MagicDictionary {
-    
     TrieNode root;
 
     public MagicDictionary() {
@@ -23,6 +22,43 @@ class MagicDictionary {
         curr.isWord = true;
     }
     
+    // Recursion
+    public boolean search(String searchWord) {
+        return dfs(searchWord, 0, this.root, false);
+    }
+    
+    private boolean dfs(String s, int i, TrieNode curr, boolean flag) {
+        if (i == s.length() && curr.isWord && flag) {
+            return true;
+        }
+        if (i >= s.length()) {
+            return false;
+        }
+        
+        char c = s.charAt(i);
+        
+        // don't use flag
+        if (curr.children.containsKey(c)) {
+            if (dfs(s, i + 1, curr.children.get(c), flag)) {
+                return true;
+            }
+        }
+        
+        // must not used before
+        if (!flag) {
+            for (char next : curr.children.keySet()) {
+                if (next != c && dfs(s, i + 1, curr.children.get(next), true)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    
+    // Iteration
+    /*
     public boolean search(String searchWord) {
         for (int i = 0; i < searchWord.length(); i++) {
             char c = searchWord.charAt(i);
@@ -52,6 +88,7 @@ class MagicDictionary {
         
         return curr.isWord;
     }
+    */
     
 }
 
