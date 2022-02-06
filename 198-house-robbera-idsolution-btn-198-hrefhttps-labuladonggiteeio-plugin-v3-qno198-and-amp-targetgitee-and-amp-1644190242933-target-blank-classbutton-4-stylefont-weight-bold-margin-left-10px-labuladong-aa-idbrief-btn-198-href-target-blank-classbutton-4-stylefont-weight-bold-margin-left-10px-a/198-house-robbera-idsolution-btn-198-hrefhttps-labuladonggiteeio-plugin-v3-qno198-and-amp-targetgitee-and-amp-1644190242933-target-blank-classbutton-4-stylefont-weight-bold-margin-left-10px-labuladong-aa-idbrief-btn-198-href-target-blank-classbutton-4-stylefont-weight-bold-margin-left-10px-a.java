@@ -5,11 +5,11 @@ class Solution {
         int[] memo = new int[n + 1];
         Arrays.fill(memo, -1);
         
-        return dfs(nums, memo, 1, n);
+        return dfs(nums, memo, 1);
     }
     
-    private int dfs(int[] nums, int[] memo, int s, int e) {
-        if (s > e) {
+    private int dfs(int[] nums, int[] memo, int s) {
+        if (s > nums.length) {
             return 0;
         }
         
@@ -18,8 +18,8 @@ class Solution {
         }
         
         int res = 0;
-        res = Math.max(dfs(nums, memo, s + 1, e),                   // don't take
-                       dfs(nums, memo, s + 2, e) + nums[s - 1]);    // take
+        res = Math.max(dfs(nums, memo, s + 1),                   // don't take
+                       dfs(nums, memo, s + 2) + nums[s - 1]);    // take
         
         memo[s] = res;
         return res;
