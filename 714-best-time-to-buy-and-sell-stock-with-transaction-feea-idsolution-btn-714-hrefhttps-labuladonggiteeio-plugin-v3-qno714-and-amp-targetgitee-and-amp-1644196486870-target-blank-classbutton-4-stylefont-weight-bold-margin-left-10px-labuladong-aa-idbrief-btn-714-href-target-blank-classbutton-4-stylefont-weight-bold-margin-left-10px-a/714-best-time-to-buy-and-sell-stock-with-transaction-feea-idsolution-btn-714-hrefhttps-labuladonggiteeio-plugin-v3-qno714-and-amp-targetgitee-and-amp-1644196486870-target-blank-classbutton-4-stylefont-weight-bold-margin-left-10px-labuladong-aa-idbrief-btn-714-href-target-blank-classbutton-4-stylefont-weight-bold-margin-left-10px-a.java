@@ -23,6 +23,6 @@ class Solution {
             dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i - 1]);
         }
         
-        return dp[n][0] < 0 ? 0 : dp[n][0];
+        return dp[n][0];
     }
 }
