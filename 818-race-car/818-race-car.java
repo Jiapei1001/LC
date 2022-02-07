@@ -1,17 +1,5 @@
 class Solution {
     
-    private String[] dirs = {"A", "R"};
-    
-    class Car {
-        int pos;
-        int speed;
-        
-        public Car(int pos, int speed) {
-            this.pos = pos;
-            this.speed = speed;
-        }
-    }
-    
     public int racecar(int target) {
         if (target == 0) {
             return 0;
