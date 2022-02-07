@@ -10,7 +10,6 @@ class Solution {
                 return a.length() - b.length();
             }
         });
-        
         // for (String w : words) System.out.println(w);
         
         // f(i) = f(j) + 1, where words[j] is predecessor of words[i]
@@ -37,11 +36,22 @@ class Solution {
         if (curr.length() == prev.length() || Math.abs(curr.length() - prev.length()) >= 2) 
             return false;
         
+        /*
         for (int i = 0; i < curr.length(); i++) {
             String cand = curr.substring(0, i) + curr.substring(i + 1);
             if (cand.equals(prev)) {
                 return true;
             }
+        }
+        */
+        
+        StringBuilder sb = new StringBuilder(curr);
+        for (int i = 0; i < sb.length(); i++) {
+            sb.deleteCharAt(i);
+            if (sb.toString().equals(prev)) {
+                return true;
+            }
+            sb.insert(i, curr.charAt(i));
         }
         
         return false;
