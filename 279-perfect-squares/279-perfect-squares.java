@@ -17,7 +17,7 @@ class Solution {
         
         Map<Integer, Boolean> memo = new HashMap<>();
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j < max_square_idx; j++) {
+            for (int j = 0; j < max_square_idx; j++) {
                 if (i < square[j]) {
                     break;
                 }
