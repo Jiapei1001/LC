@@ -1,4 +1,51 @@
 class Solution {
+    
+    // Top Down + Memoization
+    public int longestStrChain(String[] words) {
+        
+        Set<String> dict = new HashSet<>();
+        for (String word : words) dict.add(word);
+        
+        Map<String, Integer> memo = new HashMap<>();
+        
+        int res = 0;
+        for (String word : words) {
+            res = Math.max(res, dfs(word, dict, memo));
+        }
+        
+        return res;
+    }
+    
+    private int dfs(String word, Set<String> dict, Map<String, Integer> memo) {
+        if (memo.containsKey(word)) {
+            return memo.get(word);
+        }
+        
+        // NOTE: here res as 1, this word is inside Recursion, thus it is a valid word inside dict
+        // if it is not a valid word, it cannot be inside the Recursion
+        int res = 1;
+        StringBuilder sb = new StringBuilder(word);
+        
+        for (int i = 0; i < word.length(); i++) {
+            sb.deleteCharAt(i);
+            
+            String next = sb.toString();
+            if (dict.contains(next)) {
+                res = Math.max(res, 1 + dfs(next, dict, memo));
+            }
+            
+            // backtracking, add back
+            sb.insert(i, word.charAt(i));
+        }
+        
+        memo.put(word, res);
+        
+        return res;
+    }
+    
+    
+    // Bottom Up
+    /*
     public int longestStrChain(String[] words) {
         int n = words.length;
         
@@ -36,14 +83,14 @@ class Solution {
         if (curr.length() == prev.length() || Math.abs(curr.length() - prev.length()) >= 2) 
             return false;
         
-        /*
-        for (int i = 0; i < curr.length(); i++) {
-            String cand = curr.substring(0, i) + curr.substring(i + 1);
-            if (cand.equals(prev)) {
-                return true;
-            }
-        }
-        */
+
+        // for (int i = 0; i < curr.length(); i++) {
+        //     String cand = curr.substring(0, i) + curr.substring(i + 1);
+        //     if (cand.equals(prev)) {
+        //         return true;
+        //     }
+        // }
+
         
         StringBuilder sb = new StringBuilder(curr);
         for (int i = 0; i < sb.length(); i++) {
@@ -56,4 +103,5 @@ class Solution {
         
         return false;
     }
+    */
 }
