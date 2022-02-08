@@ -1,4 +1,7 @@
 class Solution {
+    
+    // Bottom Up DP
+    /*
     public int countSquares(int[][] matrix) {
         int n = matrix.length;
         int m = matrix[0].length;
@@ -18,6 +21,8 @@ class Solution {
                     if (matrix[r][c] == 1) {                        
                         dp[r][c] = 1 + Math.min(dp[r - 1][c - 1], Math.min(dp[r - 1][c], dp[r][c - 1]));
                         
+                        // if max length is 3, it must contain 2 & 1
+                        // 1 was added to cntMap before to cover base cases
                         if (dp[r][c] > 1) {
                             cntMap.put(dp[r][c], cntMap.getOrDefault(dp[r][c], 0) + dp[r][c] - 1);
                         }
@@ -32,9 +37,9 @@ class Solution {
         
         return res;
     }
+    */
 
     
-    /*
     public int countSquares(int[][] matrix) {
         int n = matrix.length;
         int m = matrix[0].length;
@@ -42,23 +47,18 @@ class Solution {
         int[][] memo = new int[n][m];
         for (int[] r : memo) Arrays.fill(r, -1);
         
-        Map<Integer, Integer> cntMap = new HashMap<>();
+        int res = 0;
         for (int r = 0; r < n; r++)
             for (int c = 0; c < m; c++) {
                 if (matrix[r][c] == 1) {
-                    dfs(matrix, r, c, memo, cntMap);
+                    res += dfs(matrix, r, c, memo);
                 }
             }
-        
-        int res = 0;
-        for (int i : cntMap.keySet()) {
-            res += cntMap.get(i);
-        }
         
         return res;
     }
     
-    private int dfs(int[][] matrix, int r, int c, int[][] memo, Map<Integer, Integer> cntMap) {
+    private int dfs(int[][] matrix, int r, int c, int[][] memo) {
         int n = matrix.length;
         int m = matrix[0].length;
         
@@ -71,14 +71,12 @@ class Solution {
         }
         
         int temp = 0;
-        temp = 1 + Math.min(dfs(matrix, r + 1, c + 1, memo, cntMap),
-                            Math.min(dfs(matrix, r + 1, c, memo, cntMap), 
-                                     dfs(matrix, r, c + 1, memo, cntMap))
+        temp = 1 + Math.min(dfs(matrix, r + 1, c + 1, memo),
+                            Math.min(dfs(matrix, r + 1, c, memo), 
+                                     dfs(matrix, r, c + 1, memo))
                            );
         
-        if (temp > 0) cntMap.put(temp, cntMap.getOrDefault(temp, 0) + 1);
-        
-        return memo[r][c];
+        memo[r][c] = temp;
+        return temp;
     }
-    */
 }
