@@ -1,6 +1,5 @@
 class NumMatrix {
-    int n;
-    int m;
+    int n, m;
     int[][] dp;
     
     public NumMatrix(int[][] matrix) {
@@ -18,11 +17,12 @@ class NumMatrix {
             }
     }
     
-    public int sumRegion(int row1, int col1, int row2, int col2) {        
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        // NOTE: 注意 i，j 代表的是什么，然后 +1 或者 -1
         // (row1 - 1) + 1, (col1 - 1) + 1
-        return dp[row2 + 1][col2 + 1]     - 
-               dp[row1][col2 + 1]         - 
-               dp[row2 + 1][col1]         + 
+        return dp[row2 + 1][col2 + 1] - 
+               dp[row1][col2 + 1]     - 
+               dp[row2 + 1][col1]     + 
                dp[row1][col1];
     }
 }
