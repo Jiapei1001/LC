@@ -1,4 +1,76 @@
 class Solution {
+    
+    class Task {
+        int label;
+        int s;
+        int p;
+        
+        public Task(int label, int s, int p) {
+            this.label = label;
+            this.s = s;
+            this.p = p;
+        }
+    }
+    
+    public int[] getOrder(int[][] tasks) {
+        int n = tasks.length;
+        
+        Task[] t = new Task[n];
+        
+        int idx = 0;
+        for (int i = 0; i < n; i++) {
+            t[idx++] = new Task(i, tasks[i][0], tasks[i][1]);
+        }
+        
+        Arrays.sort(t, (a, b) -> {
+            if (a.s == b.s) {
+                return a.p == b.p ? a.label - b.label : a.p - b.p;
+            } else {
+                return a.s - b.s;
+            }
+        });
+        
+        PriorityQueue<Task> pq = new PriorityQueue<>((a, b) -> {
+            if (a.p == b.p) {
+                return a.label - b.label;
+            } else {
+                return a.p - b.p;
+            }
+        });
+        
+        idx = 0;
+        int endTime = 0;
+        
+        List<Integer> res = new ArrayList<>();
+        
+        while (res.size() < n) {
+            while (idx < n && t[idx].s <= endTime) {
+                pq.offer(t[idx]);
+                idx++;
+            }
+            
+            if (pq.isEmpty()) {
+                endTime = t[idx].s;
+                continue;
+            }
+
+            Task curr = pq.poll();
+            res.add(curr.label);
+            endTime += curr.p;
+        }
+        
+        int[] result = new int[res.size()];
+        idx = 0;
+        for (int i : res) result[idx++] = i;
+        
+        return result;
+    }
+    
+    
+    
+    
+    
+    /*
     public int[] getOrder(int[][] tasks) {
         List<Task> list = new ArrayList<>();
         
@@ -44,8 +116,10 @@ class Solution {
         
         return res;
     }
+    */
 }
 
+/*
 class Task {
     int label;
     int s;
@@ -59,3 +133,4 @@ class Task {
         this.e = s + p;
     }
 }
+*/
