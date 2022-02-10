@@ -25,6 +25,7 @@ class Solution {
                 char rc = sArr[r];
                 if (need.containsKey(rc)) {
                     curr.put(rc, curr.getOrDefault(rc, 0) + 1);
+                    // NOTE: JAVA must use equals!!
                     if (curr.get(rc).equals(need.get(rc))) {
                         valid++;
                     }
@@ -45,6 +46,7 @@ class Solution {
                 
                 char lc = sArr[l];
                 if (need.containsKey(lc)) {
+                    // NOTE: JAVA must use equals!!
                     if (curr.get(lc).equals(need.get(lc))) {
                         valid--;
                     }
