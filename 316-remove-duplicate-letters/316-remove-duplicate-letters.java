@@ -25,6 +25,8 @@ class Solution {
                    (// increasing stack
                     sArr[i] <= sArr[stack.peek()] && 
                     // make sure it is not the last char
+                    // NOTE: 这里是和curr i相比较，stack.peek()和lastIdx相比较
+                    // 这里保证的stack.peek()如果是最后一位，同时在curr i之前，那么不可以被pop掉
                     i < lastIdx[sArr[stack.peek()] - 'a'])) {
                 int last = stack.pop();
                 visited.remove(sArr[last]);
