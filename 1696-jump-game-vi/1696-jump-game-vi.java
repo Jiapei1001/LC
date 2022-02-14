@@ -11,7 +11,7 @@ class Solution {
         
         Deque<int[]> monoq = new ArrayDeque<>();
         dp[0] = nums[0];
-        monoq.offer(new int[]{0, dp[0]});
+        // monoq.offer(new int[]{0, dp[0]});
         
         /*
         for (int i = 1; i < n; i++) {
@@ -40,8 +40,10 @@ class Solution {
             while (!monoq.isEmpty() && monoq.peekLast()[1] <= dp[i]) {
                 monoq.pollLast();
             }
-            
+            // enqueue现在的i和dp[i]
             monoq.offer(new int[]{i, dp[i]});
+            
+            // 计算下一层的DP
             // NOTE: 因为是连续的，因此即使之前的dp[prev] < 0，也要相加
             dp[i + 1] = nums[i + 1] + monoq.peekFirst()[1];
         }
