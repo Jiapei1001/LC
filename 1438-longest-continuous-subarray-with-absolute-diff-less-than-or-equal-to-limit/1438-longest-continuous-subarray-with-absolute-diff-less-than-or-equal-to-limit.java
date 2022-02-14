@@ -24,7 +24,7 @@ class Solution {
             min.offerLast(new int[]{r, curr});
             
             // shrink left
-            if (max.peekFirst()[1] - min.peekFirst()[1] > limit) {
+            while (max.peekFirst()[1] - min.peekFirst()[1] > limit) {
                 if (max.peekFirst()[1] == nums[l]) max.pollFirst();
                 if (min.peekFirst()[1] == nums[l]) min.pollFirst();
                 
