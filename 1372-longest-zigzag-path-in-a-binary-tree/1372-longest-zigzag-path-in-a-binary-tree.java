@@ -19,6 +19,7 @@ class Solution {
     
     public int longestZigZag(TreeNode root) {
         helper(root, true);
+        helper(root, false);
         
         return maxSeen;
     }
