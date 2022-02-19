@@ -24,7 +24,7 @@ class Solution {
         return maxNodes;
     }
     
-    private void helper(TreeNode root, boolean isLeft, int step) {
+    private void helper(TreeNode root, boolean prevIsLeft, int step) {
         if (root == null) {
             return;
         }
@@ -32,11 +32,13 @@ class Solution {
         maxNodes = Math.max(maxNodes, step);
         
         // prev
-        if (isLeft) {
+        if (prevIsLeft) {
             helper(root.right, false, step + 1);
+            // not continue
             helper(root.left, true, 1);
         } else {
             helper(root.left, true, step + 1);
+            // not continue
             helper(root.right, false, 1);
         }
     }
