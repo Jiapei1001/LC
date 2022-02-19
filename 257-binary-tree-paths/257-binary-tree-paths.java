@@ -17,6 +17,28 @@ class Solution {
     
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> res = new ArrayList<>();
+        dfs(root, "", res);
+        
+        return res;
+    }
+    
+    private void dfs(TreeNode root, String curr, List<String> res) {
+        if (root == null) return;
+        // leaf
+        if (root.left == null && root.right == null) {
+            res.add(curr + root.val);
+            return;
+        }
+        
+        dfs(root.left, curr + root.val + "->", res);
+        dfs(root.right, curr + root.val + "->", res);
+    }
+    
+    
+    
+    /*
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList<>();
         
         dfs(root, "", res);
         
@@ -38,6 +60,7 @@ class Solution {
         
         return;
     }
+    */
     
     
     /*
