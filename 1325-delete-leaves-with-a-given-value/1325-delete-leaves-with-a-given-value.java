@@ -14,7 +14,33 @@
  * }
  */
 class Solution {
+    
+    public TreeNode removeLeafNodes(TreeNode root, int target) {
+        if (root == null) return null;
+        
+        // leaf node
+        if (root.left == null && root.right == null && root.val == target) {
+            return null;
+        }
+        
+        // assign
+        root.left = removeLeafNodes(root.left, target);
+        root.right = removeLeafNodes(root.right, target);
+        
+        // check leaf node again
+        if (root.left == null && root.right == null && root.val == target) {
+            return null;
+        }
+        
+        return root;
+    }
 
+    
+    
+    
+    
+
+    /*
     public TreeNode removeLeafNodes(TreeNode root, int target) {
         if (root == null) {
             return root;
@@ -35,6 +61,7 @@ class Solution {
         
         return root;
     }
+    */
 
     
     // 自己做的， 可能比较redundant
