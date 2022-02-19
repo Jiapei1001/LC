@@ -14,6 +14,54 @@
  * }
  */
 class Solution {
+    
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        TreeNode dummy = new TreeNode(low);
+        dummy.right = root;
+        
+        helper(dummy, root, low, high);
+        
+        return dummy.right;
+    }
+    
+    private TreeNode helper(TreeNode parent, TreeNode root, int low, int high) {
+        if (root == null) {
+            return null;
+        }
+        
+        TreeNode left = helper(root, root.left, low, high);
+        TreeNode right = helper(root, root.right, low, high);
+        
+        if (root.val < low || root.val > high) {
+            if (parent.left == root) {
+                if (left == null) {
+                    parent.left = right;
+                    return right;
+                }
+                else {
+                    parent.left = left;
+                    return left;
+                }
+            }
+            else if (parent.right == root) {
+                if (left == null) {
+                    parent.right = right;
+                    return right;
+                }
+                else {
+                    parent.right = left;
+                    return left;
+                }
+            }
+        }
+        
+        return root;
+    }
+    
+    
+    
+    
+    /*
     public TreeNode trimBST(TreeNode root, int low, int high) {
         TreeNode dummy = new TreeNode();
         dummy.right = root;
@@ -33,7 +81,6 @@ class Solution {
         
         
         if (root.val < low || root.val > high) {
-
             if (parent.left == root) {
                 if (left == null && right == null) {
                     parent.left = null;
@@ -59,7 +106,8 @@ class Solution {
             }
         }
         
-        
+        // above has already implemented the dfs to the children
         return root;
     }
+    */
 }
