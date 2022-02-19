@@ -14,6 +14,32 @@
  * }
  */
 class Solution {
+    
+    int maxSeen = Integer.MIN_VALUE;
+    
+    public int longestZigZag(TreeNode root) {
+        helper(root, true);
+        
+        return maxSeen;
+    }
+    
+    private int helper(TreeNode root, boolean isLeft) {
+        if (root == null) {
+            return 0;
+        }
+        int leftMax = helper(root.left, true);
+        int rightMax = helper(root.right, false);
+        
+        // 比较左右两边谁更大
+        maxSeen = Math.max(maxSeen, Math.max(leftMax, rightMax));
+        
+        // 返回的时候返回连续的
+        return isLeft ? 1 + rightMax : 1 + leftMax;
+    }
+    
+    
+    // 需要传step
+    /*
     int maxNodes = Integer.MIN_VALUE;
     
     public int longestZigZag(TreeNode root) {
@@ -42,7 +68,7 @@ class Solution {
             helper(root.right, false, 1);
         }
     }
-    
+    */
     
     
     
