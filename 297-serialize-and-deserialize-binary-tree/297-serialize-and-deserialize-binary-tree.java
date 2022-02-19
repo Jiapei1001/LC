@@ -9,8 +9,64 @@
  */
 public class Codec {
     
-    int maxHeight = 0;
+    public String serialize(TreeNode root) {        
+        if (root == null) return "";
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        StringBuilder sb = new StringBuilder();
+        
+        q.offer(root);
+        
+        while (!q.isEmpty()) {
+            TreeNode curr = q.poll();
+            
+            if (curr == null) {
+                sb.append("#").append(",");
+                continue;
+            } else {
+                sb.append(curr.val).append(",");
+            }
+            
+            q.offer(curr.left);
+            q.offer(curr.right);
+        }
+        
+        return sb.toString();
+    }
+    
+    public TreeNode deserialize(String data) {
+        if (data == null || data.equals("") || data.length() == 0) {
+            return null;
+        }
+        
+        String[] sArr = data.split(",");
+        
+        TreeNode head = new TreeNode(Integer.parseInt(sArr[0]));
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(head);
+        
+        for (int i = 1; i < sArr.length; i++) {
+            TreeNode curr = q.poll();
+            
+            if (!sArr[i].equals("#")) {
+                TreeNode left = new TreeNode(Integer.parseInt(sArr[i]));
+                curr.left = left;
+                q.offer(left);
+            }
+            i++;
+            if (!sArr[i].equals("#")) {
+                TreeNode right = new TreeNode(Integer.parseInt(sArr[i]));
+                curr.right = right;
+                q.offer(right);
+            }
+        }
+        
+        return head;
+    }
+    
+    
     // preorder
+    /*
     public String serialize(TreeNode root) {        
         if (root == null) return "#,";
         
@@ -43,7 +99,7 @@ public class Codec {
         
         return curr;
     }
-    
+    */
     
     
     /*
