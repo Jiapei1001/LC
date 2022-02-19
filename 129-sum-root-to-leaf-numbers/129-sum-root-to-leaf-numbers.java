@@ -14,6 +14,29 @@
  * }
  */
 class Solution {
+    
+    // no global variable
+    public int sumNumbers(TreeNode root) {
+        return helper(root, 0);
+    }
+    
+    private int helper(TreeNode root, int prevSum) {
+        if (root == null) return 0;
+        
+        if (root.left == null && root.right == null) {
+            return prevSum * 10 + root.val;
+        }
+        
+        int currSum = prevSum * 10 + root.val;
+        int left = helper(root.left, currSum);
+        int right = helper(root.right, currSum);
+        
+        return left + right;
+    }
+    
+    
+    // global variable
+    /*
     int res = 0;
     
     public int sumNumbers(TreeNode root) {
@@ -23,6 +46,7 @@ class Solution {
     }
     
     private void helper(TreeNode root, String prev) {
+        // still need this base case to avoid [0, 1], no right side case
         if (root == null) return;
         
         // not going to the null value, as it will make the sum * twice
@@ -35,6 +59,7 @@ class Solution {
         helper(root.left, prev + root.val);
         helper(root.right, prev + root.val);
     }
+    */
     
     
     /*
