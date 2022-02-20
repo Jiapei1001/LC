@@ -14,7 +14,50 @@
  * }
  */
 class Solution {
+    List<Integer> res;
+    Integer prev = null;
+    int acc = 0;
+    int maxAcc = 0;
     
+    public int[] findMode(TreeNode root) {
+        res = new ArrayList<>();
+        
+        inorder(root);
+        
+        return res.stream().mapToInt(a -> a).toArray();
+    }
+    
+    private void inorder(TreeNode root) {
+        if (root == null) return;
+        
+        inorder(root.left);
+        
+        // process current node
+        int currVal = root.val;
+        
+        if (prev == null || currVal != prev) {
+            acc = 1;
+        }else if (currVal == prev) {
+            acc++;
+        }
+        
+        if (acc == maxAcc) {
+            res.add(currVal);
+        } else if (acc > maxAcc) {
+            res.clear();
+            res.add(currVal);
+        }
+        
+        maxAcc = Math.max(maxAcc, acc);
+        prev = currVal;
+        
+        inorder(root.right);
+    }
+    
+    
+    
+    // Iterative
+    /*
     public int[] findMode(TreeNode root) {
         
         List<Integer> res = new ArrayList<>();
@@ -56,6 +99,7 @@ class Solution {
         
         return res.stream().mapToInt(i -> i).toArray();
     }
+    */
     
     
     /*
