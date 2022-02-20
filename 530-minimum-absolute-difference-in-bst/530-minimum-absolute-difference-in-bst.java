@@ -14,6 +14,38 @@
  * }
  */
 class Solution {
+    
+    // Iterative
+    public int getMinimumDifference(TreeNode root) {
+        int res = Integer.MAX_VALUE;
+        
+        Integer prev = null;
+        Stack<TreeNode> stack = new Stack<>();
+        
+        TreeNode curr = root;
+        
+        while (!stack.isEmpty() || curr != null) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+            
+            curr = stack.pop();
+            
+            if (prev != null) {
+                res = Math.min(res, curr.val - prev);
+            }
+            prev = curr.val;
+            
+            curr = curr.right;
+        }
+        
+        return res;
+    }
+    
+    
+    // Recursion
+    /*
     Integer prev = null;
     int res = Integer.MAX_VALUE;
     
@@ -35,4 +67,5 @@ class Solution {
         
         inorder(root.right);
     }
+    */
 }
