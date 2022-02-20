@@ -14,6 +14,43 @@
  * }
  */
 class Solution {
+    
+    // 不使用parent
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) return null;
+        
+        if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+        } else if (key > root.val) {
+            root.right = deleteNode(root.right, key);
+        } else {
+            // leaf node
+            if (root.left == null && root.right == null) {
+                root = null;
+            }
+            // single child
+            else if (root.left != null && root.right == null) {
+                root = root.left;
+            }
+            // single child
+            else if (root.right != null && root.left == null) {
+                root = root.right;
+            } else {
+                // two children
+                TreeNode successor = root.right;
+                while (successor.left != null) successor = successor.left;
+
+                root.val = successor.val;
+                root.right = deleteNode(root.right, successor.val);
+            }
+        }
+        
+        return root;
+    }
+    
+    
+    // 自己做的，使用了parent
+    /*
     public TreeNode deleteNode(TreeNode root, int key) {
         // leaf, one child, two children
         TreeNode dummy = new TreeNode(0);
@@ -54,4 +91,5 @@ class Solution {
         if (key < root.val) return helper(root, root.left, key);
         else return helper(root, root.right, key);
     }
+    */
 }
