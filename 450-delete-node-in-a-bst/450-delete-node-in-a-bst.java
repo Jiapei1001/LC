@@ -30,11 +30,11 @@ class Solution {
             }
             // single child
             else if (root.left != null && root.right == null) {
-                root = root.left;
+                return root.left;
             }
             // single child
             else if (root.right != null && root.left == null) {
-                root = root.right;
+                return root.right;
             } else {
                 // two children
                 TreeNode successor = root.right;
