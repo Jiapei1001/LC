@@ -1,4 +1,37 @@
 class Solution {
+    
+    public boolean isLongPressedName(String name, String typed) {
+        int n = name.length();
+        int m = typed.length();
+        
+        if (m < n) return false;
+        
+        char[] xArr = name.toCharArray();
+        char[] yArr = typed.toCharArray();
+        
+        int i = 0, j = 0;
+        
+        while (i < n && j < m) {
+            if (xArr[i] != yArr[j]) return false;
+            // update same i
+            while (i + 1 < n && xArr[i] == xArr[i + 1]) {
+                i++;
+                j++;
+                if (xArr[i] != yArr[j]) return false;
+            }
+            // update same j
+            while (j + 1 < m && yArr[j] == yArr[j + 1]) {
+                j++;
+            }
+            i++;
+            j++;
+        }
+        
+        return i == n && j == m;
+    }
+    
+    
+    /*
     public boolean isLongPressedName(String name, String typed) {
         int n = name.length(), m = typed.length();
         
@@ -26,4 +59,5 @@ class Solution {
         
         return i == n && j == m;
     }
+    */
 }
