@@ -23,10 +23,10 @@ class Solution {
                     return tempSum;
                 } else if (tempSum < target) {
                     l++;
-                    // while (l < r && nums[l] == nums[l - 1]) l++;
+                    while (l < r && nums[l] == nums[l - 1]) l++;
                 } else {
                     r--;
-                    // while (l < r && nums[r] == nums[r + 1]) r--;
+                    while (l < r && nums[r] == nums[r + 1]) r--;
                 }
             }
         }
