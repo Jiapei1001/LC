@@ -1,5 +1,52 @@
 class Solution {
     
+    // Monotonic Stack
+    public int trap(int[] height) {
+        // Monotonic Stack - decreasing - as accumulating water
+        // if find next larger, pop up last elements in the stack
+        // the popped element functions as last height
+        
+        int n = height.length;
+        
+        // stores index, not height!!
+        Deque<Integer> deque = new ArrayDeque<>();
+        
+        deque.offerLast(1000000);
+        
+        int res = 0;
+        int prevHeight = 0;
+        for (int i = 0; i < n; i++) {
+            while (!deque.isEmpty() && deque.peekLast() != 1000000 &&  height[deque.peekLast()] < height[i]) {
+                int last = deque.pollLast();
+                
+                // NOTE: here must break, to avoid continuing next step and triggering out of index exception
+                if (deque.peekLast() == 1000000) {
+                    break;
+                }
+                
+                prevHeight = height[last];
+                // (peek, i)
+                int width = (i - deque.peekLast() - 1);
+                int h = Math.min(height[deque.peekLast()], height[i]) - prevHeight;
+                
+                res += width * h;
+            }
+            
+            deque.offerLast(i);
+        }
+        
+        // reach n, there might be still remaining places for water
+//         while (stack.size() > 1) {
+//             int last = deque.popLast();
+            
+//         }
+        
+        return res;
+    }
+    
+    
+    // Two Pointers
+    /*
     public int trap(int[] height) {
         int n = height.length;
         
@@ -28,6 +75,7 @@ class Solution {
         
         return res;
     }
+    */
     
     
     
