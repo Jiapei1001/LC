@@ -13,10 +13,12 @@ class Solution {
         
         while (i < n && j < m) {
             if (xArr[i] != yArr[j]) return false;
+            
             // update same i
             while (i + 1 < n && xArr[i] == xArr[i + 1]) {
                 i++;
                 j++;
+                // NOTE: here must put after the index increase
                 if (xArr[i] != yArr[j]) return false;
             }
             // update same j
@@ -27,6 +29,7 @@ class Solution {
             j++;
         }
         
+        // both must reach ends
         return i == n && j == m;
     }
     
