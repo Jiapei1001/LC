@@ -1,4 +1,22 @@
 class StockSpanner {
+
+    Stack<int[]> stack;
+    
+    public StockSpanner() {
+        this.stack = new Stack<>();    
+    }
+    
+    public int next(int price) {
+        int day = 1;
+        while (!this.stack.isEmpty() && this.stack.peek()[0] <= price) {
+            int[] last = this.stack.pop();
+            day += last[1];
+        }
+        
+        this.stack.push(new int[]{price, day});
+        return day;
+    }
+    
     // monotonic stack
     // what is the inside? -> decreasing stock prices
 
@@ -7,6 +25,7 @@ class StockSpanner {
     // because, if future stock >= current Stock, then it must be larger than the pop stock
     
     // int[0] := price; int[1] := days
+    /*
     Stack<int[]> stack;
     
     public StockSpanner() {
@@ -25,6 +44,7 @@ class StockSpanner {
         
         return tempDay;
     }
+    */
 }
 
 /**
