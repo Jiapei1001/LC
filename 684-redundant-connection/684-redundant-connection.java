@@ -18,11 +18,13 @@ class Solution {
     }
     
     private boolean createCycle(Map<Integer, List<Integer>> graph, int src, int tar, Set<Integer> visited) {
+        if (src == tar) return true;
+
         visited.add(src);
         
         for (int next : graph.getOrDefault(src, new ArrayList<>())) {
-            if (next == tar) return true;
             if (!visited.contains(next)) {
+                // check if future can create a cycle
                 if (createCycle(graph, next, tar, visited)) {
                     return true;
                 }
