@@ -20,8 +20,10 @@ class Solution {
             int[] curr = pq.poll();
             int r = curr[0], c = curr[1], d = curr[2];
             
+            // the minimum distance guaranteed by PQ
             if (r == n - 1 && c == m - 1) {
                 res = Math.min(res, d);
+                return res;
             }
             
             visited.add(r * m + c);
