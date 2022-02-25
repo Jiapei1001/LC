@@ -52,7 +52,7 @@ class Solution {
                     pq.offer(new int[]{next, s + 1, dist[next]});
                 }
                 // stop
-                if (s + 1 < stops[next]) {
+                else if (s + 1 < stops[next]) {
                     stops[next] = s + 1;
                     pq.offer(new int[]{next, s + 1, d + w});
                 }
