@@ -26,6 +26,7 @@ class Solution {
         
         // NOTE: 这里只可以比较dist，不可以按stops排序，否则会错误！！
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        
         // node, stops, dist
         pq.offer(new int[]{src, 0, 0});
         
@@ -51,7 +52,7 @@ class Solution {
                     pq.offer(new int[]{next, s + 1, dist[next]});
                 }
                 // stop
-                else if (s + 1 < stops[next]) {
+                if (s + 1 < stops[next]) {
                     stops[next] = s + 1;
                     pq.offer(new int[]{next, s + 1, d + w});
                 }
