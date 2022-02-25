@@ -1,4 +1,40 @@
 class Solution {
+    
+    public int[] findRedundantConnection(int[][] edges) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        
+        // check the new edge if it can create a cycle
+        Set<Integer> visited = new HashSet<>();
+        for (int[] e : edges) {
+            visited = new HashSet<>();
+            if (createCycle(graph, e[0], e[1], visited)) {
+                return e;
+            }
+            graph.computeIfAbsent(e[0], a -> new ArrayList<>()).add(e[1]);
+            graph.computeIfAbsent(e[1], a -> new ArrayList<>()).add(e[0]);
+        }
+        
+        return null;
+    }
+    
+    private boolean createCycle(Map<Integer, List<Integer>> graph, int src, int tar, Set<Integer> visited) {
+        visited.add(src);
+        
+        for (int next : graph.getOrDefault(src, new ArrayList<>())) {
+            if (next == tar) return true;
+            if (!visited.contains(next)) {
+                if (createCycle(graph, next, tar, visited)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    
+    // UnionFind
+    /*
     class UnionFind {
         int[] parent;
         
@@ -47,6 +83,8 @@ class Solution {
         
         return res;
     }
+    */
+    
     
     /* Option 1 - Disjoint Components - UnionFind
     class UnionFind {
