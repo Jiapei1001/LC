@@ -1,5 +1,7 @@
 class Solution {
     
+    boolean hasCycle;
+    
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         // build graph
         Map<Integer, Set<Integer>> graph = new HashMap<>();
@@ -10,18 +12,47 @@ class Solution {
         boolean[] visited = new boolean[numCourses];
         boolean[] recStack = new boolean[numCourses];
         
+        int[] color = new int[numCourses];
+        hasCycle = false;
+        
         List<Integer> res = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) {
+            // visited + recStack
+            /*
             if (!visited[i]) {
                 if (hasCycle(graph, i, visited, recStack, res)) {
                     return new int[]{};
                 }
             }
+            */
+            
+            // color
+            if (color[i] == 0) {
+                dfs(graph, i, color, res);
+            }
         }
         
         Collections.reverse(res);
         
-        return res.stream().mapToInt(a -> a).toArray();
+        // return res.stream().mapToInt(a -> a).toArray();
+        return hasCycle ? new int[]{} : res.stream().mapToInt(a -> a).toArray();
+    }
+    
+    private void dfs(Map<Integer, Set<Integer>> graph, int curr, int[] color, List<Integer> res) {
+        // ongoing
+        color[curr] = 1;
+        
+        for (int next : graph.getOrDefault(curr, new HashSet<>())) {
+            if (color[next] == 0) {
+                dfs(graph, next, color, res);
+            } else if (color[next] == 1) {
+                hasCycle = true;
+            }
+        }
+        
+        // visited
+        color[curr] = 2;
+        res.add(curr);
     }
     
     private boolean hasCycle(Map<Integer, Set<Integer>> graph, int curr, boolean[] visited,
