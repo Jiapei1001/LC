@@ -40,9 +40,16 @@ class Solution {
     private List<String> getValidOptions(String curr, String end, int i, Set<String> visited, Set<String> words) {
         List<String> res = new ArrayList<>();
         
+        char[] sArr = curr.toCharArray();
+        char temp = sArr[i];
+        
         for (char c : ops) {
-            if (c == curr.charAt(i)) continue;
-            String next = curr.substring(0, i) + c + curr.substring(i + 1);
+            if (c == sArr[i]) continue;
+            
+            sArr[i] = c;
+            String next = new String(sArr);
+            sArr[i] = temp;
+            
             if (visited.contains(next) || !words.contains(next)) continue;
             
             res.add(next);
