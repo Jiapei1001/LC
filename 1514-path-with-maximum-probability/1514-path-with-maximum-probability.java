@@ -26,7 +26,7 @@ class Solution {
         Queue<Node> pq = new PriorityQueue<>((a, b) -> Double.compare(b.prob, a.prob));
         pq.offer(new Node(start, 1.0));
         
-        Set<Integer> visited = new HashSet<>();
+        // Set<Integer> visited = new HashSet<>();
         
         while (!pq.isEmpty()) {
             Node curr = pq.poll();
@@ -36,17 +36,18 @@ class Solution {
                 return curr.prob;
             }
             
-            if (visited.contains(curr.node)) {
-                continue;
-            }
-            
-            visited.add(curr.node);
+            // 必须要加visited，因为prob可能会不断进行下去，造成TLE
+            // if (visited.contains(curr.node)) {
+            //     continue;
+            // }
+            // visited.add(curr.node);
             
             for (int next : graph.getOrDefault(curr.node, new HashMap<>()).keySet()) {
                 // relax
                 double cand = curr.prob * graph.get(curr.node).get(next);
                 if (cand > prob[next]) {
                     pq.offer(new Node(next, cand));
+                    prob[next] = cand;
                 }
             }
         }
