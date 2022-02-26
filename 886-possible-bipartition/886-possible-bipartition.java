@@ -13,10 +13,34 @@ class Solution {
         
         for (int i = 1; i <= n; i++) {
             if (color[i] == 0) {
-                color[i] = -1;
-                if (!bfs(graph, i, color)) {
+                // BFS
+                // color[i] = -1;
+                // if (!bfs(graph, i, color)) {
+                    // return false;
+                // }
+                if (!dfs(graph, i, -1, color)) {
                     return false;
                 }
+            }
+        }
+        
+        return true;
+    }
+    
+    private boolean dfs(Map<Integer, Set<Integer>> graph, int i, int currColor, int[] color) {
+        if (color[i] != 0) {
+            return color[i] == currColor;
+        }
+        
+        color[i] = currColor;
+        
+        for (int next : graph.getOrDefault(i, new HashSet<>())) {
+            if (color[next] == 0) {
+                if (!dfs(graph, next, -currColor, color)) {
+                    return false;
+                }
+            } else if (color[next] == currColor) {
+                return false;
             }
         }
         
