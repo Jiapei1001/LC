@@ -12,7 +12,6 @@ class Solution {
         }
         
         boolean[] visited = new boolean[n];
-        Map<Integer, Integer> parent = new HashMap<>();
 
         if (hasCycle(graph, 0, -1, visited)) {
             return false;
