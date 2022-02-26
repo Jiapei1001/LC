@@ -36,29 +36,29 @@ class Solution {
                     continue;
                 }
                 
-                if (i != grid[r][c]) {
-                    nCost++;
-                }
+//                 if (i != grid[r][c]) {
+//                     nCost++;
+//                 }
                 
-                if (nCost < dp[nr][nc]) {
-                    pq.offer(new int[]{nr, nc, nCost});
-                    dp[nr][nc] = nCost;
-                }
+//                 if (nCost < dp[nr][nc]) {
+//                     pq.offer(new int[]{nr, nc, nCost});
+//                     dp[nr][nc] = nCost;
+//                 }
                 
                 
                 // two choices
-                // if (i == grid[r][c]) {
-                //     // no further cost
-                //     if (cost < dp[nr][nc]) {
-                //         pq.offer(new int[]{nr, nc, cost});
-                //         dp[nr][nc] = dp[r][c] + cost;
-                //     }
-                // } else {
-                //     if ((cost + 1) < dp[nr][nc]) {
-                //         pq.offer(new int[]{nr, nc, cost + 1});
-                //         dp[nr][nc] = cost + 1;
-                //     }
-                // }
+                if (i == grid[r][c]) {
+                    // no further cost
+                    if (cost < dp[nr][nc]) {
+                        pq.offer(new int[]{nr, nc, cost});
+                        dp[nr][nc] = cost;
+                    }
+                } else {
+                    if ((cost + 1) < dp[nr][nc]) {
+                        pq.offer(new int[]{nr, nc, (cost + 1)});
+                        dp[nr][nc] = cost + 1;
+                    }
+                }
             }
         }
         
