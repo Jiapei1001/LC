@@ -18,26 +18,27 @@ class Solution {
         List<Integer> res = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) {
             // visited + recStack
-            /*
             if (!visited[i]) {
                 if (hasCycle(graph, i, visited, recStack, res)) {
                     return new int[]{};
                 }
             }
-            */
             
             // color
+            /*
             if (color[i] == 0) {
                 dfs(graph, i, color, res);
             }
+            */
         }
         
         Collections.reverse(res);
         
-        // return res.stream().mapToInt(a -> a).toArray();
-        return hasCycle ? new int[]{} : res.stream().mapToInt(a -> a).toArray();
+        return res.stream().mapToInt(a -> a).toArray();
+        // return hasCycle ? new int[]{} : res.stream().mapToInt(a -> a).toArray();
     }
     
+    // color
     private void dfs(Map<Integer, Set<Integer>> graph, int curr, int[] color, List<Integer> res) {
         // ongoing
         color[curr] = 1;
@@ -55,17 +56,20 @@ class Solution {
         res.add(curr);
     }
     
+    // visited + recStack
     private boolean hasCycle(Map<Integer, Set<Integer>> graph, int curr, boolean[] visited,
                              boolean[] recStack, List<Integer> res) {
         // NOTE: 这里必须先判断recStack！！再判断visited！！
         if (recStack[curr]) return true;
-        
+        // 必须在判断recStack之后！！
         if (visited[curr]) return false;
         
         visited[curr] = true;
         recStack[curr] = true;
         
         for (int next : graph.getOrDefault(curr, new HashSet<>())) {
+            // NOTE: 这里千万不能加 if (!visited[next]) ！！
+            // 上面有bottom case，如果加了，无法进入下一层去找cycle！！
             if (hasCycle(graph, next, visited, recStack, res)) {
                 return true;
             }
@@ -76,7 +80,6 @@ class Solution {
         
         return false;
     }
-    
     
     
     // DFS
