@@ -23,6 +23,7 @@ class Solution {
                 return cost;
             }
             
+            // NOTE: 这里是一个核心的剪枝过程，防止新的path with新的cost，返回到之前visited过的位置，并且cost更大
             if (dp[r][c] != cost) {
                 continue;
             }
@@ -30,21 +31,23 @@ class Solution {
             for (int i = 1; i <= 4; i++) {
                 int nr = r + dirs[i - 1][0];
                 int nc = c + dirs[i - 1][1];
-                int nCost = cost;
                 
                 if (nr < 0 || nr >= n || nc < 0 || nc >= m) {
                     continue;
                 }
                 
-//                 if (i != grid[r][c]) {
-//                     nCost++;
-//                 }
+                // Combined
+                /*
+                int nCost = cost;
+                if (i != grid[r][c]) {
+                    nCost++;
+                }
                 
-//                 if (nCost < dp[nr][nc]) {
-//                     pq.offer(new int[]{nr, nc, nCost});
-//                     dp[nr][nc] = nCost;
-//                 }
-                
+                if (nCost < dp[nr][nc]) {
+                    pq.offer(new int[]{nr, nc, nCost});
+                    dp[nr][nc] = nCost;
+                }
+                */
                 
                 // two choices
                 if (i == grid[r][c]) {
@@ -62,6 +65,6 @@ class Solution {
             }
         }
         
-        return dp[n - 1][m - 1];
+        return dp[n - 1][m - 1] == Integer.MAX_VALUE ? -1 : dp[n - 1][m - 1];
     }
 }
