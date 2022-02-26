@@ -24,7 +24,7 @@ class Solution {
             }
             
             // NOTE: 这里是一个核心的剪枝过程，防止新的path with新的cost，返回到之前visited过的位置，并且cost更大
-            if (dp[r][c] != cost) {
+            if (dp[r][c] < cost) {
                 continue;
             }
             
