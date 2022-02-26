@@ -26,6 +26,7 @@ class Solution {
         visited.add(0 + "-" + 1);
         
         int step = 0;
+        
         while (!q.isEmpty()) {
             int size = q.size();
             
@@ -36,16 +37,18 @@ class Solution {
                 res[node] = Math.min(res[node], step);
                 
                 // prev as red
-                if (color == -1) {
-                    for (int next : blue.getOrDefault(node, new HashSet<>())) {
+                // if (color == -1) {
+                    for (int next : color == -1 ? 
+                         blue.getOrDefault(node, new HashSet<>()) : red.getOrDefault(node, new HashSet<>())) {
                         String nextColor = next + "-" + (-color);
                         if (!visited.contains(nextColor)) {
                             visited.add(nextColor);
                             q.offer(new int[]{next, -color});
                         }
                     }
-                } 
+                // } 
                 // prev as blue
+                /*
                 else if (color == 1) {
                     for (int next : red.getOrDefault(node, new HashSet<>())) {
                         String nextColor = next + "-" + (-color);
@@ -55,6 +58,7 @@ class Solution {
                         }
                     }
                 }
+                */
             }
             step++;
         }
