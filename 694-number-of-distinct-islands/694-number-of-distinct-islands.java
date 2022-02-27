@@ -34,7 +34,6 @@ class Solution {
             int nc = c + dirs[i][1];
             
             if (nr < 0 || nr >= n || nc < 0 || nc >= m) continue;
-            // if (grid[nr][nc] != 1) continue;
             
             temp += dfs(grid, nr, nc, dirStr[i]);
         }
