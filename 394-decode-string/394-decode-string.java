@@ -1,5 +1,46 @@
 class Solution {
+
+    public String decodeString(String s) {
+        int n = s.length();
+        char[] sArr = s.toCharArray();
+        
+        Stack<Integer> numStack = new Stack<>();
+        Stack<StringBuilder> strStack = new Stack<>();
+        
+        StringBuilder curr = new StringBuilder();
+        int num = 0;
+        
+        for (int i = 0; i < n; i++) {
+            if (Character.isDigit(sArr[i])) {
+                num = num * 10 + (sArr[i] - '0');
+            } else if (Character.isLetter(sArr[i])) {
+                curr.append(sArr[i]);
+            } else if (sArr[i] == '[') {
+                numStack.push(num);
+                strStack.push(curr);
+                
+                num = 0;
+                curr = new StringBuilder();
+            } else if (sArr[i] == ']') {
+                String currLevel = curr.toString();
+                
+                StringBuilder prev = strStack.isEmpty() ? new StringBuilder() : strStack.pop();
+                Integer cnt = numStack.pop();
+                
+                for (int k = 0; k < cnt; k++) {
+                    prev.append(currLevel);
+                }
+                
+                curr = prev;
+                num = 0;
+            }
+        }
+        
+        return curr.toString();
+    }
+
     
+    /*
     private int i = 0;
     
     public String decodeString(String s) {
@@ -40,6 +81,7 @@ class Solution {
         
         return sb.toString();
     }
+    */
     
     
     /*
