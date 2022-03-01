@@ -12,8 +12,10 @@ class Solution {
         
         int l = 0, r = 0;
         int res = 1;
+        
         for (; r < n; r++) {
             if (map2Idx.containsKey(sArr[r])) {
+                // NOTE：这里l不可以跳回之前的位置，必须是不断往右！！
                 l = Math.max(l, map2Idx.get(sArr[r]) + 1);
             }
             
@@ -26,6 +28,7 @@ class Solution {
         
         return res;
     }
+    
     
     /*
     public int lengthOfLongestSubstring(String s) {
