@@ -27,12 +27,12 @@ class Solution {
             int[] curr = pq.poll();
             int r = curr[0], c = curr[1], ck = curr[2], d = curr[3];
             
+            // NOTE: must avoid the case when ck < 0
+            if (ck < 0) continue;
+            
             if (r == n - 1 && c == m - 1 && ck >= 0) {
                 return d;
             }
-            
-            // NOTE: must avoid the case when ck < 0
-            if (ck < 0) continue;
             
             if (visited[r][c][ck]) continue;
             
@@ -44,15 +44,13 @@ class Solution {
                 
                 if (nr < 0 || nr >= n || nc < 0 || nc >= m) continue;
                 
-                if (grid[nr][nc] == 0 && !visited[nr][nc][ck]) {
+                if (grid[nr][nc] == 0) {
                     pq.offer(new int[]{nr, nc, ck, d + 1});
                 }
                 
                 else if (grid[nr][nc] == 1) {
-                    if (ck > 0 && !visited[nr][nc][ck - 1]) {
+                    if (ck > 0) {
                         pq.offer(new int[]{nr, nc, ck - 1, d + 1});
-                    } else {
-                        continue;
                     }
                 }
             }
