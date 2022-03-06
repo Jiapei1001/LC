@@ -19,6 +19,8 @@ class Solution {
                 i = i + 1;
                 num = calculate(s);
                 System.out.println(num);
+                // NOTE: HERE make sure last char is not ), 
+                // so that if last one (), won't index out of boundary.
                 i = i < n - 1 ? i + 1 : i;
             }
             
@@ -95,7 +97,6 @@ class Solution {
         }
         */
         
-        
         int res = 0;
         while (!stack.isEmpty()) {
             res += stack.pop();
@@ -103,6 +104,7 @@ class Solution {
         
         return res;
     }
+    
     
     /*
     public int calculate(String s) {
