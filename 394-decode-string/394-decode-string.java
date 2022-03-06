@@ -1,5 +1,44 @@
 class Solution {
 
+    int i = 0;
+    
+    public String decodeString(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        
+        int n = s.length();
+        char[] sArr = s.toCharArray();
+        
+        int num = 0;
+        StringBuilder curr = new StringBuilder();
+        
+        for (; i < n && sArr[i] != ']'; i++) {
+            if (Character.isDigit(sArr[i])) {
+                num = num * 10 + (sArr[i] - '0');
+            }
+            if (sArr[i] == '[') {
+                i += 1;
+                String next = decodeString(s);
+                
+                while (num > 0) {
+                    curr.append(next);
+                    num--;
+                }
+                
+                num = 0;
+            }
+            
+            if (sArr[i] != ' ' && Character.isLetter(sArr[i])) {
+                curr.append(sArr[i]);
+            }
+        }
+        
+        return curr.toString();
+    }
+    
+    
+    /*
     public String decodeString(String s) {
         int n = s.length();
         char[] sArr = s.toCharArray();
@@ -38,7 +77,8 @@ class Solution {
         
         return curr.toString();
     }
-
+    */
+    
     
     /*
     private int i = 0;
