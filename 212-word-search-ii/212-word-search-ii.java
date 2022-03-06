@@ -29,10 +29,68 @@ class Trie{
     }
 }
 
+
 class Solution {
     
     private static final int[][] dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     
+    public List<String> findWords(char[][] board, String[] words) {
+        List<String> res = new ArrayList<>();
+        
+        int n = board.length;
+        int m = board[0].length;
+        
+        Trie trie = new Trie();
+        TrieNode root = trie.root;
+        
+        for (String s : words) {
+            trie.addWord(s);
+        }
+        
+        Set<String> seen = new HashSet<>();
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < m; c++) {
+                char temp = board[r][c];
+                if (root.children[temp - 'a'] != null) {
+                    dfs(board, r, c, root.children[temp - 'a'], "" + temp, seen);
+                }
+            }
+        }
+        
+        return new ArrayList<String>(seen);
+    }
+    
+    private void dfs(char[][] board, int r, int c, TrieNode currNode, String curr, Set<String> seen) {
+        if (currNode.foundWord != null) {
+            seen.add(curr);
+        }
+        // may continue
+        
+        char temp = board[r][c];
+        board[r][c] = '#';
+        
+        for (int[] dir : dirs) {
+            int nr = r + dir[0];
+            int nc = c + dir[1];
+            
+            if (nr < 0 || nr >= board.length || nc < 0 || nc >= board[0].length) {
+                continue;
+            }
+            if (board[nr][nc] == '#') {
+                continue;
+            }
+            char next = board[nr][nc];
+            if (currNode.children[next - 'a'] != null) {
+                dfs(board, nr, nc, currNode.children[next - 'a'], curr + next, seen);
+            }
+        }
+        
+        board[r][c] = temp;
+    }
+    
+    
+    
+    /*
     public List<String> findWords(char[][] board, String[] words) {
         Trie trie = new Trie();
         for (String s : words) trie.addWord(s);
@@ -50,7 +108,6 @@ class Solution {
     
     private void dfs(char[][] board, int r, int c, String s, TrieNode curr, Set<String> res) {
         char t = board[r][c];
-        
         
         if (curr.children[t - 'a'] == null) {
             return;
@@ -82,6 +139,8 @@ class Solution {
         
         board[r][c] = t;
     }
+    */
+    
     
     
     
