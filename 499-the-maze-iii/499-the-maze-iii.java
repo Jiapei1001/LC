@@ -24,19 +24,12 @@ class Solution {
             (a, b) -> a.d == b.d ? a.steps.compareTo(b.steps) : a.d - b.d);
         
         boolean[][] visited = new boolean[n][m];
-        Set<String> seen = new HashSet<>();
         
         pq.offer(new State(ball[0], ball[1], 0, ""));
         
         while (!pq.isEmpty()) {
             State curr = pq.poll();
             int r = curr.r, c = curr.c;
-            
-            // String s = curr.r + "->" + curr.c + "->" + curr.d;
-            // if (seen.contains(s)) {
-            //     continue;
-            // }
-            // seen.add(s);
             
             if (r == hole[0] && c == hole[1]) {
                 return curr.steps;
@@ -72,6 +65,7 @@ class Solution {
             nc += dirs[i][1];
             nd++;
 
+            // NOTE: 这里可以帮助防止下面 step back 的情况
             if (nr == hole[0] && nc == hole[1]) {
                 return new State(nr, nc, nd, newSteps);
             }
