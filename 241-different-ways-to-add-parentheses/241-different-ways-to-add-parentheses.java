@@ -19,6 +19,7 @@ class Solution {
         
         List<Integer> level = new ArrayList<>();
         boolean foundOperator = false;
+        
         for (int i = l; i <= r; i++) {
             if (!Character.isDigit(sArr[i])) {
                 foundOperator = true;
@@ -30,7 +31,7 @@ class Solution {
                     continue;
                 }
 
-                for (int x : left)
+                for (int x : left) {
                     for (int y : right) {
                         int temp = 0;
                         switch (sArr[i]) {
@@ -49,6 +50,7 @@ class Solution {
                         }
                         level.add(temp);
                     }
+                }
             }
         }
         
