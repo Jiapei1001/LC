@@ -1,5 +1,54 @@
 class Solution {
+    
+    public String decodeString(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        
+        int n = s.length();
+        char[] sArr = s.toCharArray();
+        
+        int num = 0;
+        StringBuilder curr = new StringBuilder();
+        
+        for (int i = 0; i < n; i++) {
+            if (Character.isDigit(sArr[i])) {
+                num = num * 10 + (sArr[i] - '0');
+            }
+            if (sArr[i] == '[') {
+                int j = i + 1;
+                int brace = 1;
+                
+                while (j < n) {
+                    if (sArr[j] == '[') brace++;
+                    else if (sArr[j] == ']') brace--;
+                    
+                    if (brace == 0) break;
+                    j++;
+                }
+                
+                String next = decodeString(s.substring(i + 1, j));
+                // NOTE: here set i = j, as ], then will update i using for loop
+                i = j;
+                
+                while (num > 0) {
+                    curr.append(next);
+                    num--;
+                }
+                
+                num = 0;
+            }
+            
+            if (sArr[i] != ' ' && Character.isLetter(sArr[i])) {
+                curr.append(sArr[i]);
+            }
+        }
+        
+        return curr.toString();
+    }
+    
 
+    /*
     int i = 0;
     
     public String decodeString(String s) {
@@ -20,6 +69,7 @@ class Solution {
             if (sArr[i] == '[') {
                 i += 1;
                 String next = decodeString(s);
+                // no need to break ] as it is captured by the above condition
                 
                 while (num > 0) {
                     curr.append(next);
@@ -36,6 +86,7 @@ class Solution {
         
         return curr.toString();
     }
+    */
     
     
     /*
