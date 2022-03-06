@@ -18,12 +18,9 @@ class Solution {
         }
         
         List<Integer> level = new ArrayList<>();
-        boolean foundOperator = false;
         
         for (int i = l; i <= r; i++) {
-            if (!Character.isDigit(sArr[i])) {
-                foundOperator = true;
-                
+            if (!Character.isDigit(sArr[i])) {                
                 List<Integer> left = dfs(l, i - 1, sArr);
                 List<Integer> right = dfs(i + 1, r, sArr);
                 
@@ -54,7 +51,7 @@ class Solution {
             }
         }
         
-        if (!foundOperator) {
+        if (level.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             for (int i = l; i <= r; i++) sb.append(sArr[i]);
             level.add(Integer.parseInt(sb.toString()));
