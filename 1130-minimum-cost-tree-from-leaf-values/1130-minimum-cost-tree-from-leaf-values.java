@@ -1,6 +1,38 @@
 class Solution {
+
+    public int mctFromLeafValues(int[] arr) {
+        int n = arr.length;
+        
+        // monotonic stack, decreasing
+        // if larger, than update sum, 
+        // \/, we want to use the middle one * the smaller one on left or right
+            
+        Stack<Integer> stack = new Stack<>();
+        stack.push(Integer.MAX_VALUE);
+        
+        int res = 0;
+        
+        for (int i = 0; i < n; i++) {
+            while (stack.size() > 1 && stack.peek() < arr[i]) {
+                int mid = stack.pop();
+                res += mid * Math.min(stack.peek(), arr[i]);
+            }
+            
+            stack.push(arr[i]);
+        }
+        
+        int last = stack.pop();
+        while(stack.size() > 1) {
+            int temp = stack.pop();
+            res += temp * last;
+            last = temp;
+        }
+        
+        return res;
+    }
     
     
+    /*
     public int mctFromLeafValues(int[] arr) {
         int n = arr.length;
         
@@ -24,12 +56,7 @@ class Solution {
         
         return res;
     }
-    
-    
-    
-    
-    
-    
+    */
     
     
     /*
