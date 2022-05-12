@@ -1,6 +1,29 @@
 class Solution {
     
     public int lengthOfLongestSubstring(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        
+        char[] sArr = s.toCharArray();
+        
+        Map<Character, Integer> cntMap = new HashMap<>();
+        
+        int l = 0, res = 1;
+        for (int r = 0; r < sArr.length; r++) {
+            if (cntMap.containsKey(sArr[r])) {
+                l = Math.max(l, cntMap.get(sArr[r]) + 1);
+            }
+            res = Math.max(res, r - l + 1);
+            cntMap.put(sArr[r], r);
+        }
+        
+        return res;
+    }
+    
+    
+    /*
+    public int lengthOfLongestSubstring(String s) {
         if (s == null || s.length() == 0) return 0;
         
         // sliding window
@@ -28,6 +51,7 @@ class Solution {
         
         return res;
     }
+    */
     
     
     /*
