@@ -7,6 +7,7 @@ class ExamRoom {
     private Map<Integer, int[]> map2Start;
     private Map<Integer, int[]> map2End;
     private TreeSet<int[]> intervals;
+    
     private int N;
     private int count;
     
